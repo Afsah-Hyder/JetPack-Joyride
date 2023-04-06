@@ -49,7 +49,7 @@ void JetpackJoyride::fire_jetpack(){
     // cout<<"F key is pressed"<<endl;
     b1->drop=0;
     b1->flying();
-    b1->move_up();
+    // b1->move_up();
     
     
 }

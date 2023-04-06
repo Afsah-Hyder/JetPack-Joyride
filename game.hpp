@@ -44,4 +44,3 @@ public:
     bool run1();
     void run2();
 };
-

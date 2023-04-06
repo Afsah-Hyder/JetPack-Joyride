@@ -51,7 +51,7 @@ void Barry::running(){
 
 void Barry::flying(){
     if (mover.y>30){
-    mover.y-=1;
+    mover.y-=rise;
     }
     // if (frames==0){
     // src = {0,95, 79, 97};
@@ -80,8 +80,8 @@ void Barry::flying(){
 }
 
 void Barry::move_up(){
-    if(mover.y>30)
-    mover.y=mover.y-6;
+    // if(mover.y>30)
+    // mover.y=mover.y-6;
 }
 
 void Barry::move_down(){

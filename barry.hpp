@@ -8,6 +8,7 @@ class Barry: public Unit{
     bool drop=0;
     int frames;
     int frame_speed=7;
+    int rise=3;
     Barry(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
     void draw();
     void running();

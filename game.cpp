@@ -72,7 +72,7 @@ bool Game::loadMedia()
 	//Loading success flag
 	bool success = true;
 	// SDL_Event e;
-	bgMusic = Mix_LoadMUS( "bg_music.ogg" );
+	bgMusic = Mix_LoadMUS( "bg_music.wav" );
 	jetpacksound = Mix_LoadMUS ("jetpack_jet_lp.wav");
 	if(bgMusic == NULL or jetpacksound==NULL){
 		printf("Unable to load music: %s \n", Mix_GetError());
