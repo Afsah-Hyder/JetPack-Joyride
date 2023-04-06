@@ -1,7 +1,7 @@
 #include "game.hpp"
 #include "JetpackJoyride.hpp"
 #include<vector>
-int bg_speed=3;
+int bg_speed=4;
 // int x;
 bool Game::init()
 
@@ -71,12 +71,13 @@ bool Game::loadMedia()
 	//Loading success flag
 	bool success = true;
 	bgMusic = Mix_LoadMUS( "bg_music.ogg" );
-	if(bgMusic == NULL){
+	jetpacksound = Mix_LoadMUS ("jetpack_jet_lp.wav");
+	if(bgMusic == NULL or jetpacksound==NULL){
 		printf("Unable to load music: %s \n", Mix_GetError());
 		success = false;
 	}
 	assets = loadTexture("assets.png");
-    gTexture = loadTexture("Sector1.png");
+    gTexture = loadTexture("Sector1_new_1.png");
 	if(assets==NULL || gTexture==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
@@ -144,7 +145,12 @@ void Game::run( )
 	JetpackJoyride JetpackJoyride(gRenderer, assets);
 	JetpackJoyride.createBarry();
 	while( !quit )
-	{	
+	{	if( Mix_PlayingMusic() == 0 )
+			{	
+				// Mix_PlayMusic(jetpacksound,0);
+				// Play the music
+				Mix_PlayMusic( bgMusic,-1 );
+			}
 		
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
@@ -173,22 +179,13 @@ void Game::run( )
 					// Mix_PlayMusic( bgMusic, 2);
 					// x+=speed;
 					// camera.x+=speed;
-					if( Mix_PlayingMusic() == 0 )
-					{
-						// Play the music
-						Mix_PlayMusic( bgMusic,2 );
-					}
+					
 					
 				}
 
 			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_SPACE){
 				JetpackJoyride.jetpack_off();
-				// if( Mix_PlayingMusic() == 0 )
-				// {
-					//Play the music
-					// Mix_PlayMusic( firesound, 0);
-					// x+=speed;
-					// camera.x+=speed;
+				
 					
 				}
 		}
@@ -202,8 +199,14 @@ void Game::run( )
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
 		bgRect.x=bgRect.x-bg_speed; //moves the background
-		if (bgRect.x <= -bgWidth+900) {
-        bgRect.x = -150;
+		if (bgRect.x <= -bgWidth+920) {
+        bgRect.x = -40;
+		bgRect.y = bgRect.y-460;
+		if (bgRect.y==-1840){
+			bgRect.y=0;
+		}
+		
+
     }
 	    SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
 	}

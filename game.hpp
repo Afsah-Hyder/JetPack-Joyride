@@ -28,12 +28,13 @@ class Game{
     // SDL_Texture* bg6 = NULL;
     //global reference to png image sheets
     SDL_Texture* assets=NULL;
-    Mix_Music *firesound = NULL;
+    
     // int bg_selector=0;
     
 
 public:
     Mix_Music *bgMusic = NULL;
+    Mix_Music *jetpacksound = NULL;
     int bgspeed;
     // int bgWidth, bgHeight;
     // int bgWidth, bgHeight;
