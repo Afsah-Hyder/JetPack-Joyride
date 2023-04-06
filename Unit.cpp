@@ -1,8 +1,5 @@
 #include "Unit.hpp"
 
-
-// Unit class is well implemented, no need to change it
-
 Unit::Unit(SDL_Renderer* rend, SDL_Texture* ast): gRenderer(rend), assets(ast){
 
 }

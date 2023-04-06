@@ -1,6 +1,5 @@
 #include<SDL.h>
-#pragma once  //for multiple include optimization
-// Unit class is well implemented, no need to change it
+#pragma once
 
 class Unit{
     SDL_Renderer* gRenderer;
