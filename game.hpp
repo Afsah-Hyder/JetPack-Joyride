@@ -7,6 +7,7 @@
 #include <time.h>
 #include <SDL_mixer.h>
 
+
 class Game{
     //Screen dimension constants
     const int SCREEN_WIDTH = 900;
@@ -20,12 +21,20 @@ class Game{
     SDL_Rect camera;
     //Current displayed texture
     SDL_Texture* gTexture = NULL;
+    // SDL_Texture* bg2 = NULL;
+    // SDL_Texture* bg3 = NULL;
+    // SDL_Texture* bg4 = NULL;
+    // SDL_Texture* bg5 = NULL;
+    // SDL_Texture* bg6 = NULL;
     //global reference to png image sheets
     SDL_Texture* assets=NULL;
     Mix_Music *firesound = NULL;
+    // int bg_selector=0;
     
 
 public:
+    Mix_Music *bgMusic = NULL;
+    int bgspeed;
     // int bgWidth, bgHeight;
     // int bgWidth, bgHeight;
     bool init();

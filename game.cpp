@@ -1,8 +1,8 @@
 #include "game.hpp"
-#include "BattleField.hpp"
+#include "JetpackJoyride.hpp"
 #include<vector>
-int speed=20;
-int x;
+int bg_speed=3;
+// int x;
 bool Game::init()
 
 
@@ -25,7 +25,7 @@ bool Game::init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "HU Mania", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Jetpack Joyride!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -52,6 +52,12 @@ bool Game::init()
 					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 					success = false;
 				}
+				
+				if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+				{
+					printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+					success = false;
+				}
 
 			}
 		}
@@ -61,10 +67,14 @@ bool Game::init()
 }
 
 bool Game::loadMedia()
-{
+{	
 	//Loading success flag
 	bool success = true;
-	firesound = Mix_LoadMUS( "f_sound.mp3" );
+	bgMusic = Mix_LoadMUS( "bg_music.ogg" );
+	if(bgMusic == NULL){
+		printf("Unable to load music: %s \n", Mix_GetError());
+		success = false;
+	}
 	assets = loadTexture("assets.png");
     gTexture = loadTexture("Sector1.png");
 	if(assets==NULL || gTexture==NULL)
@@ -124,17 +134,22 @@ SDL_Texture* Game::loadTexture( std::string path )
 
 
 void Game::run( )
-{	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
+{	
+	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
 	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
 	bool quit = false;
 	SDL_Event e;
-
-	BattleField BattleField(gRenderer, assets);
+	
+	
+	JetpackJoyride JetpackJoyride(gRenderer, assets);
+	JetpackJoyride.createBarry();
 	while( !quit )
-	{
+	{	
+		
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
 		{
+			
 
 			//User requests quit
 			if( e.type == SDL_QUIT )
@@ -146,16 +161,32 @@ void Game::run( )
 			//this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
-				BattleField.createObject(xMouse, yMouse);
+				JetpackJoyride.createObject(xMouse, yMouse);
 				// Mix_PlayMusic( firesound, 2 );
 			}
 
 			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
-				BattleField.fire();
+				JetpackJoyride.fire_jetpack();
 				// if( Mix_PlayingMusic() == 0 )
 				// {
 					//Play the music
-					Mix_PlayMusic( firesound, 0);
+					// Mix_PlayMusic( bgMusic, 2);
+					// x+=speed;
+					// camera.x+=speed;
+					if( Mix_PlayingMusic() == 0 )
+					{
+						// Play the music
+						Mix_PlayMusic( bgMusic,2 );
+					}
+					
+				}
+
+			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_SPACE){
+				JetpackJoyride.jetpack_off();
+				// if( Mix_PlayingMusic() == 0 )
+				// {
+					//Play the music
+					// Mix_PlayMusic( firesound, 0);
 					// x+=speed;
 					// camera.x+=speed;
 					
@@ -167,10 +198,10 @@ void Game::run( )
 		
 		//***********************draw the objects here********************
 
-		BattleField.drawObjects();
+		JetpackJoyride.drawObjects();
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
-		bgRect.x=bgRect.x-4; //moves the background
+		bgRect.x=bgRect.x-bg_speed; //moves the background
 		if (bgRect.x <= -bgWidth+900) {
         bgRect.x = -150;
     }
