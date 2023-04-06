@@ -28,21 +28,20 @@ class Game{
     // SDL_Texture* bg6 = NULL;
     //global reference to png image sheets
     SDL_Texture* assets=NULL;
-    
-    // int bg_selector=0;
+    const char* screen[3]={"Start_screen.jpeg","Instructions_screen.jpeg","Sector1_new_1.png"};
+    int bg_selector=0;
     
 
 public:
     Mix_Music *bgMusic = NULL;
     Mix_Music *jetpacksound = NULL;
     int bgspeed;
-    // int bgWidth, bgHeight;
-    // int bgWidth, bgHeight;
     bool init();
     bool loadMedia();
     void close();
     // SDL_Rect bgRect;
     SDL_Texture* loadTexture( std::string path );
-    void run();
+    bool run1();
+    void run2();
 };
 

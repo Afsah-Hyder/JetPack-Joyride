@@ -12,12 +12,34 @@ int main(int argc, char *argv[]){
 		printf( "Failed to initialize!\n" );
         return 0;
 	}
-		//Load media
-    if( !game.loadMedia() ){
-        printf( "Failed to load media!\n" );
-        return 0;
+    int i=0;
+    bool run_check;
+    while(i<3){
+    //     	//Load media
+        if( !game.loadMedia() ){
+            printf( "Failed to load media!\n" );
+            return 0;
+        }
+        int screen=i;
+        switch (screen){
+            case 0:
+            case 1:
+                run_check=game.run1();
+                if (run_check==false){
+                    i=999;
+                }
+                else{
+                    i+=1;
+                }
+                break;
+            case 2:
+                game.run2();
+                i=999;
+                break;
+            default:
+                break;
+        }
     }
-    game.run();
     game.close();
 
     return 0;

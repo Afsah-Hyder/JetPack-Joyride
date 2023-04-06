@@ -2,6 +2,7 @@
 #include "JetpackJoyride.hpp"
 #include<vector>
 int bg_speed=4;
+// int bg_selector=0;
 // int x;
 bool Game::init()
 
@@ -70,6 +71,7 @@ bool Game::loadMedia()
 {	
 	//Loading success flag
 	bool success = true;
+	// SDL_Event e;
 	bgMusic = Mix_LoadMUS( "bg_music.ogg" );
 	jetpacksound = Mix_LoadMUS ("jetpack_jet_lp.wav");
 	if(bgMusic == NULL or jetpacksound==NULL){
@@ -77,7 +79,8 @@ bool Game::loadMedia()
 		success = false;
 	}
 	assets = loadTexture("assets.png");
-    gTexture = loadTexture("Sector1_new_1.png");
+	gTexture=loadTexture(screen[bg_selector]);
+    
 	if(assets==NULL || gTexture==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
@@ -110,7 +113,6 @@ SDL_Texture* Game::loadTexture( std::string path )
 {	
 	//The final texture
 	SDL_Texture* newTexture = NULL;
-
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
@@ -133,15 +135,62 @@ SDL_Texture* Game::loadTexture( std::string path )
 	return newTexture;
 }
 
-
-void Game::run( )
+bool Game::run1( )
 {	
 	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
 	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
 	bool quit = false;
 	SDL_Event e;
-	
-	
+	JetpackJoyride JetpackJoyride(gRenderer, assets);
+	while( !quit ){
+		if( Mix_PlayingMusic() == 0 )
+			{	
+				// Mix_PlayMusic(jetpacksound,0);
+				// Play the music
+				Mix_PlayMusic( bgMusic,-1 );
+			}
+		while( SDL_PollEvent( &e ) != 0 )
+		{
+		
+
+			//User requests quit
+			if( e.type == SDL_QUIT )
+			{
+				quit = true;
+				return false;    //so it exits the while loop in main
+			}
+
+			if((bg_selector==0) && (e.type == SDL_MOUSEBUTTONDOWN)){
+				bg_selector+=1;
+				return true;
+			}
+
+			if((bg_selector==1) && (e.type == SDL_MOUSEBUTTONDOWN)){
+				int xMouse, yMouse;
+				SDL_GetMouseState(&xMouse,&yMouse);
+				if(xMouse>=542 && xMouse<=744){
+					if(yMouse>=266 && yMouse<=353){
+						bg_selector+=1;
+						return true;
+					}
+				}
+			}
+		}
+		SDL_RenderClear(gRenderer); //removes everything from renderer
+		SDL_RenderCopy(gRenderer, gTexture, NULL, &bgRect);//Draws background to renderer
+
+		SDL_RenderPresent(gRenderer); //displays the updated renderer
+
+		SDL_Delay(200);	//causes sdl engine to delay for specified miliseconds
+	}
+}
+
+void Game::run2(){
+	cout<<"run2 called"<<endl;
+	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
+	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
+	bool quit = false;
+	SDL_Event e;
 	JetpackJoyride JetpackJoyride(gRenderer, assets);
 	JetpackJoyride.createBarry();
 	while( !quit )
@@ -161,6 +210,7 @@ void Game::run( )
 			if( e.type == SDL_QUIT )
 			{
 				quit = true;
+				// return 999;                       //so it exits the while loop in main
 			}
 
 			if(e.type == SDL_MOUSEBUTTONDOWN){
@@ -197,18 +247,17 @@ void Game::run( )
 
 		JetpackJoyride.drawObjects();
 		//****************************************************************
-    	SDL_RenderPresent(gRenderer); //displays the updated renderer
+		SDL_RenderPresent(gRenderer); //displays the updated renderer
 		bgRect.x=bgRect.x-bg_speed; //moves the background
 		if (bgRect.x <= -bgWidth+920) {
-        bgRect.x = -40;
+		bgRect.x = -40;
 		bgRect.y = bgRect.y-460;
 		if (bgRect.y==-1840){
 			bgRect.y=0;
 		}
 		
 
-    }
-	    SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
 	}
-			
+		SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
+	}
 }
