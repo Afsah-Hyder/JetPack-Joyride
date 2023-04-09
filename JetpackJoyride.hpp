@@ -1,6 +1,7 @@
 #pragma once
 #include<SDL.h>
 #include "barry.hpp"
+#include "Killers.hpp"
 
 #include<list>
 using namespace std;
@@ -8,7 +9,8 @@ class JetpackJoyride{
     
     SDL_Renderer *gRenderer;
     SDL_Texture *assets;
-    // list<Bullet*>::iterator b;  //iterator for the list of Bullet* objects
+    list <Killers*> killer_holder;
+    list<Killers*>::iterator killer_iter;  //iterator for the list of Bullet* objects
 
     public:
     //function sketches
@@ -19,7 +21,10 @@ class JetpackJoyride{
     void createObject(int, int);
     void fire_jetpack();
     void jetpack_off();
-
+    void create_at_random();
+    int random_speed_controller=0;
+    int random_speed=120; //the greater the number, the slower the creation of random objects
+    int random_object_spacer=0; //creates objects sepated by random distances
 
     ~JetpackJoyride();  //destructor
 };

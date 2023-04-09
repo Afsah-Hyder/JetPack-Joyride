@@ -98,3 +98,11 @@ void Barry::move_down(){
 void Barry::falling(){
 
 }
+
+int Barry::barry_x_pos(){
+    return mover.x;
+}
+
+int Barry::barry_y_pos(){
+    return mover.y;
+}

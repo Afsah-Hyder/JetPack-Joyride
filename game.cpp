@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "JetpackJoyride.hpp"
 #include<vector>
+#include "fx.hpp"
 int bg_speed=4;
 // int bg_selector=0;
 // int x;
@@ -192,6 +193,7 @@ void Game::run2(){
 	bool quit = false;
 	SDL_Event e;
 	JetpackJoyride JetpackJoyride(gRenderer, assets);
+	FX effects;
 	JetpackJoyride.createBarry();
 	while( !quit )
 	{	if( Mix_PlayingMusic() == 0 )
@@ -223,12 +225,7 @@ void Game::run2(){
 
 			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
 				JetpackJoyride.fire_jetpack();
-				// if( Mix_PlayingMusic() == 0 )
-				// {
-					//Play the music
-					// Mix_PlayMusic( bgMusic, 2);
-					// x+=speed;
-					// camera.x+=speed;
+				effects.effect('z');
 					
 					
 				}
@@ -254,10 +251,9 @@ void Game::run2(){
 		bgRect.y = bgRect.y-460;
 		if (bgRect.y==-1840){
 			bgRect.y=0;
+			}
 		}
-		
-
-	}
+		JetpackJoyride.create_at_random();
 		SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
 	}
 }
