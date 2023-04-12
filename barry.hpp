@@ -5,7 +5,7 @@ class Barry: public Unit{
     SDL_Rect src, mover;
     public:
     int gravity=3;
-    bool drop=0;
+    bool drop=0; //do not change
     int frames;
     int frame_speed=7;
     int rise=3;

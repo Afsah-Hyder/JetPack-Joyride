@@ -3,6 +3,7 @@
 #include "barry.hpp"
 #include "Killers.hpp"
 #include "collectables.hpp"
+#include "fx.hpp"
 #include<list>
 using namespace std;
 class JetpackJoyride{
@@ -18,6 +19,7 @@ class JetpackJoyride{
     public:
     //function sketches
     Barry *b1;
+    FX* audio;
     JetpackJoyride(SDL_Renderer *, SDL_Texture *);
     void createBarry();
     void drawObjects(); 
@@ -26,7 +28,7 @@ class JetpackJoyride{
     void jetpack_off();
     void create_at_random();
     int random_speed_controller=0;
-    int random_speed=120; //the greater the number, the slower the creation of random objects
+    int random_speed=140; //the greater the number, the slower the creation of random objects
     int random_object_spacer=0; //creates objects sepated by random distances
     ~JetpackJoyride();  //destructor
 };

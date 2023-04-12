@@ -194,10 +194,15 @@ void Game::run2(){
 	SDL_Event e;
 	JetpackJoyride JetpackJoyride(gRenderer, assets);
 	FX effects;
+	effects.initialize();
+	effects.load();
 	JetpackJoyride.createBarry();
 	while( !quit )
-	{	if( Mix_PlayingMusic() == 0 )
+	{	
+		
+		if( Mix_PlayingMusic() == 0 )
 			{	
+				// effects.effect('c');
 				// Mix_PlayMusic(jetpacksound,0);
 				// Play the music
 				Mix_PlayMusic( bgMusic,-1 );
@@ -215,17 +220,18 @@ void Game::run2(){
 				// return 999;                       //so it exits the while loop in main
 			}
 
-			// if(e.type == SDL_MOUSEBUTTONDOWN){
-			// //this is a good location to add pigeon in linked list.
-			// 	int xMouse, yMouse;
-			// 	SDL_GetMouseState(&xMouse,&yMouse);
-			// 	JetpackJoyride.createObject(xMouse, yMouse);
-			// 	// Mix_PlayMusic( firesound, 2 );
-			// }
+			if(e.type == SDL_MOUSEBUTTONDOWN){
+			//this is a good location to add pigeon in linked list.
+				int xMouse, yMouse;
+				SDL_GetMouseState(&xMouse,&yMouse);
+				// JetpackJoyride.createObject(xMouse, yMouse);
+				// Mix_PlayMusic( firesound, 2 );
+				// effects.effect('c');
+			}
 
 			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
 				JetpackJoyride.fire_jetpack();
-				effects.effect('z');
+				effects.effect('j');
 					
 					
 				}

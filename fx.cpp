@@ -3,22 +3,29 @@
 
 using namespace std;
 
+
+
 void FX::initialize()
-{
+{   if (Mix_Init(MIX_INIT_OGG | MIX_INIT_MP3) != 0) {
     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
     {
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+    }
     }
 }
 
 void FX::load()
 {
-    jetpack = Mix_LoadWAV( ".\\music\\jetpack_jet_lp.wav" );
+    jetpack = Mix_LoadWAV( "music/jetpack_plain_lp.wav" );
     if( jetpack == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
     }
-
+    coin = Mix_LoadWAV( "music/coin.wav"  );
+    if( coin == NULL )
+    {
+        printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+    }
     // touch = Mix_LoadWAV( ".\\music\\touch.wav" );
     // if( touch == NULL )
     // {
@@ -31,7 +38,7 @@ void FX::load()
     //     printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
     // }     
     
-    zapped = Mix_LoadWAV( ".\\music\\zapper.wav" );
+    zapped = Mix_LoadWAV( "music/zapper.wav" );
     if( zapped == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
@@ -43,11 +50,11 @@ void FX::destroy()
 {
     Mix_FreeChunk( jetpack);
     Mix_FreeChunk( zapped);
-    // Mix_FreeChunk( stomp );
+    Mix_FreeChunk( coin );
     // Mix_FreeChunk( die );
     jetpack = NULL;
     zapped = NULL;
-    // die = NULL;
+    coin = NULL;
     // touch = NULL;
 }
 
@@ -56,8 +63,10 @@ void FX::effect(char choice)
     
 
     if (choice == 'j')
-    {
+    {   Mix_VolumeChunk(jetpack, 32);
+    
         Mix_PlayChannel( -1, jetpack, 0 );
+        Mix_FadeOutChannel(1, 100);
     }
 
     if (choice == 'z')
@@ -65,10 +74,12 @@ void FX::effect(char choice)
         Mix_PlayChannel( -1, zapped, 0 );
     }
 
-    // if (choice == 's')
-    // {
-    //     Mix_PlayChannel( -1, stomp, 0 );
-    // }
+    if (choice == 'c')
+    {   Mix_VolumeChunk(coin, 32);
+        Mix_PlayChannel( -1, coin, 0 );
+
+        cout<<"Coin chime"<<endl;
+    }
 
     // if (choice == 'd')
     // {
