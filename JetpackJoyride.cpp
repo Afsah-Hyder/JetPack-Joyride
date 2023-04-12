@@ -34,10 +34,11 @@ void JetpackJoyride::drawObjects(){
         (**collector_iter).draw();
         if ((**collector_iter).collision(b1->barry_x_pos(),b1->barry_y_pos())==true){
             b1->score+=5;
-            Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
-            collector_holder.erase(collector_iter); //remove the bullet object
-            delete new_ptr; //delete the pointer
-            cout<<"Coin deleted"<<endl;
+            
+            // Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
+            // collector_holder.erase(collector_iter); //remove the bullet object
+            // delete new_ptr; //delete the pointer
+            // cout<<"Coin deleted"<<endl;
         }
         if ((**collector_iter).coin_delete()==true){  //if the zapper has to be removed
             Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
@@ -136,5 +137,6 @@ JetpackJoyride::~JetpackJoyride(){  //destructor for the JetpackJoyride
     }
     collector_holder.clear();
     killer_holder.clear();
+    cout<<"Score "<<b1->score<<endl;
     cout<<"Everything destroyed!"<<endl;
 }

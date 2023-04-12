@@ -14,11 +14,23 @@ Coins::Coins(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, as
 }
 
 void Coins::draw(){
+    if (coll_check){
+        src={490,320,20,20};
+        Unit::draw(src, mover); 
+
+    }
+    else{
     Unit::draw(src, mover); 
     mover.x-=4;
     animation();
     frame++;
+    }
 }
+
+// void Coins::disappear(){
+//     src={}
+//     Unit::draw(src, mover); 
+// }
 
 bool Coins::coin_delete(){
     if (mover.x < -150){
@@ -34,12 +46,13 @@ bool Coins::collision(int barry_x, int barry_y){
     if (barry_x>mover.x-1 and barry_x<(mover.x+mover.w+1)){
         if ((barry_y<mover.y+(mover.h/2))and (barry_y>mover.y-(mover.h/2))){
             cout<<"Barry collided"<<endl;
-            return true;
+            coll_check=true;
+            return coll_check;
             //call score function
             // delete coin
         }
     }
-    return false;
+    return coll_check;
 }
 
 Coins::~Coins(){
