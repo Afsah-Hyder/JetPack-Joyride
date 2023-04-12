@@ -215,13 +215,13 @@ void Game::run2(){
 				// return 999;                       //so it exits the while loop in main
 			}
 
-			if(e.type == SDL_MOUSEBUTTONDOWN){
-			//this is a good location to add pigeon in linked list.
-				int xMouse, yMouse;
-				SDL_GetMouseState(&xMouse,&yMouse);
-				JetpackJoyride.createObject(xMouse, yMouse);
-				// Mix_PlayMusic( firesound, 2 );
-			}
+			// if(e.type == SDL_MOUSEBUTTONDOWN){
+			// //this is a good location to add pigeon in linked list.
+			// 	int xMouse, yMouse;
+			// 	SDL_GetMouseState(&xMouse,&yMouse);
+			// 	JetpackJoyride.createObject(xMouse, yMouse);
+			// 	// Mix_PlayMusic( firesound, 2 );
+			// }
 
 			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
 				JetpackJoyride.fire_jetpack();
