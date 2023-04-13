@@ -5,13 +5,13 @@
 #include "Killers.hpp"
 
 
-class Zapper:public Killers, public Unit{
+class Zapper_h:public Killers, public Unit{
 
     SDL_Rect src, mover;
     int frame=0;
-    int frame_speed=6;
+  
     public:
-    Zapper(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
+    Zapper_h(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
     void draw();
     
     int zapper_x = mover.x;
@@ -19,7 +19,7 @@ class Zapper:public Killers, public Unit{
     void collision(int barry_x, int barry_y) override;
     
     void animation();
-    ~Zapper();
+    ~Zapper_h();
     bool zapper_delete() override;
 
 

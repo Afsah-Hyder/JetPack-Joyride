@@ -6,11 +6,6 @@ using namespace std;
 Coins::Coins(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
     cout<<"Coin created"<<endl;
     src = {389,2, 20, 20};    //constructor, calls the parent class constructor and saves data to its own attributes too
-    // src={411,2,20,20};
-    // src={436,2,14,20};
-    // src={458,2,6,20};
-    // src={473,2,14,20};
-    // src={493,2,20,20};
 }
 
 void Coins::draw(){
@@ -27,11 +22,6 @@ void Coins::draw(){
     }
 }
 
-// void Coins::disappear(){
-//     src={}
-//     Unit::draw(src, mover); 
-// }
-
 bool Coins::coin_delete(){
     if (mover.x < -150){
         return true;
@@ -43,9 +33,8 @@ bool Coins::coin_delete(){
 }
 
 bool Coins::collision(int barry_x, int barry_y){
-    if (barry_x>mover.x-1 and barry_x<(mover.x+mover.w+1)){
-        if ((barry_y<mover.y+(mover.h/2))and (barry_y>mover.y-(mover.h/2))){
-            cout<<"Barry collided"<<endl;
+    if (barry_x>mover.x-2 and barry_x<(mover.x+mover.w+2)){
+        if ((barry_y<mover.y+(mover.h))and (barry_y>mover.y-(mover.h))){
             coll_check=true;
             return coll_check;
             //call score function
