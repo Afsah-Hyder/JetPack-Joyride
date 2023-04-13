@@ -8,6 +8,7 @@ class Coins: public Collectables,public Unit{
     int frame=0;
     int frame_speed=4;
     bool coll_check=false;
+    bool invisible=false;
     public:
     Coins(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
     void draw();

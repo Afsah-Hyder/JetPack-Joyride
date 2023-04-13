@@ -3,6 +3,7 @@
 #include<iostream>
 // #include "Killers.hpp";
 // #include "collectables.hpp";
+#include "fx.hpp"
 #include "ZapperH.hpp"
 #include "ZapperV.hpp"
 #include "coins.hpp"
@@ -33,8 +34,16 @@ void JetpackJoyride::drawObjects(){
     for (collector_iter; collector_iter!=collector_holder.end();collector_iter++){ 
         // (**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos());  //loop to iterate over the list and remove the bullets that need to be removed
         (**collector_iter).draw();
+        // audio->effect('c');
         if ((**collector_iter).collision(b1->barry_x_pos(),b1->barry_y_pos())==true){
-            b1->score+=5;
+            b1->score+=1;
+            audio->effect('c');
+            
+            
+        //     Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
+        //     collector_holder.erase(collector_iter); //remove the bullet object
+        //     delete new_ptr; //delete the pointer
+        //     cout<<"Coin deleted"<<endl;
         }
         if ((**collector_iter).coin_delete()==true){  //if the zapper has to be removed
             Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
@@ -90,13 +99,15 @@ void JetpackJoyride::create_at_random(){
                 std::cout<<"Coin created at: "<<1020<<" -- "<<random_y_pos<<std::endl;
             }
         }
-        SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
+        // SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
         coin_check=true;
     }
 }
 
 JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRenderer(renderer), assets(asst){
-
+    audio=   new FX();
+    audio->initialize();
+    audio->load();
 }
 
 void JetpackJoyride::fire_jetpack(){

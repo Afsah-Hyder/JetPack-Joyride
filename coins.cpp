@@ -9,17 +9,13 @@ Coins::Coins(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, as
 }
 
 void Coins::draw(){
-    if (coll_check){
-        src={490,320,20,20};
-        Unit::draw(src, mover); 
-
+    if (invisible==true){
+        src = {0,0,0,0};
     }
-    else{
     Unit::draw(src, mover); 
     mover.x-=4;
     animation();
     frame++;
-    }
 }
 
 bool Coins::coin_delete(){
@@ -33,15 +29,17 @@ bool Coins::coin_delete(){
 }
 
 bool Coins::collision(int barry_x, int barry_y){
-    if (barry_x>mover.x-2 and barry_x<(mover.x+mover.w+2)){
-        if ((barry_y<mover.y+(mover.h))and (barry_y>mover.y-(mover.h))){
-            coll_check=true;
-            return coll_check;
+    if (barry_x>mover.x-10 and barry_x<(mover.x+mover.w+10)){
+        if ((barry_y<mover.y+(mover.h/2)+15)and (barry_y>mover.y-(mover.h/2)-15)){
+            cout<<"Barry collected a coin"<<endl;
+            invisible=true;
+            
+            return true;
             //call score function
             // delete coin
         }
     }
-    return coll_check;
+    return false;
 }
 
 Coins::~Coins(){
@@ -49,23 +47,26 @@ Coins::~Coins(){
 }
 
 void Coins::animation(){
+    if (invisible==true){
+        src = {0,0,0,0};
+    }
     if (frame==1*frame_speed){
-        src = {389,2, 20, 20};
+        src = {388,0,22, 22};
     }
     else if (frame==2*frame_speed){
-        src={411,2,20,20};
+        src={410, 0 ,22,22};
     }
     else if(frame==3*frame_speed){
-        src={436,2,14,20};
+        src={433, 0 ,22, 22};
     }
     else if (frame==4*frame_speed){
-        src={458,2,6,20};
+        src={450,0,22,22};
     }
     else if (frame==5*frame_speed){
-        src={473,2,14,20};
+        src={469,0,22,22};
     }
     else if(frame==6*frame_speed){
-        src={493,2,20,20};
+        src={492,0,22,22};
         frame=0;
     }
     

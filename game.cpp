@@ -231,7 +231,7 @@ void Game::run2(){
 
 			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
 				JetpackJoyride.fire_jetpack();
-				effects.effect('j');
+				// effects.effect('j');
 					
 					
 				}
