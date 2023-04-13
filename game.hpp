@@ -28,7 +28,7 @@ class Game{
     // SDL_Texture* bg6 = NULL;
     //global reference to png image sheets
     SDL_Texture* assets=NULL;
-    const char* screen[3]={"Start_screen.jpeg","Instructions_screen.jpeg","Sector1_new_2.png"};
+    const char* screen[3]={"Start_screen.jpeg","Instructions_screen.jpeg","Sector1_new_1.png"};
     int bg_selector=0;
     
 
