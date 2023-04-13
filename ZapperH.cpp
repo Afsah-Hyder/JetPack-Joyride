@@ -1,15 +1,15 @@
-#include "Zapper.hpp"    
+#include "ZapperH.hpp"    
 
 #include <iostream>
 #include "JetpackJoyride.hpp"
 using namespace std;
 
-Zapper::Zapper(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
+Zapper_h::Zapper_h(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
     cout<<"Zapper created"<<endl;
     src = {0,445, 223, 72};    //constructor, calls the parent class constructor and saves data to its own attributes too
 }
 
-void Zapper::draw(){
+void Zapper_h::draw(){
     Unit::draw(src, mover); 
     
     mover.x -=4;
@@ -17,22 +17,19 @@ void Zapper::draw(){
     frame++;
 }
 
-void Zapper::collision(int barry_x, int barry_y){
-    // int character_x = Barry::barry_x_pos();
-    // int character_y = Barry::barry_y_pos();
-
+void Zapper_h::collision(int barry_x, int barry_y){
     if (barry_x>mover.x-10 and barry_x<(mover.x+mover.w+10)){
         if ((barry_y<mover.y+(mover.h/2))and (barry_y>mover.y-(mover.h/2))){
-            cout<<"Barry collided"<<endl;
+            cout<<"Barry collided horizontal zapper"<<endl;
         }
     }
 }
 
-Zapper::~Zapper(){
-    cout<<"Zapper destroyed"<<endl;
+Zapper_h::~Zapper_h(){
+    cout<<"Horizontal Zapper destroyed"<<endl;
 }
 
-bool Zapper::zapper_delete(){
+bool Zapper_h::zapper_delete(){
     if (mover.x < -150){
         return true;
     }
@@ -42,7 +39,7 @@ bool Zapper::zapper_delete(){
     }
 }
 
-void Zapper::animation(){
+void Zapper_h::animation(){
     if (frame==1*frame_speed){
         src = {0,445, 223, 72};
         // SDL_Delay(40);

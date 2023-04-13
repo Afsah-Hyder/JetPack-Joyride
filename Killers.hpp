@@ -3,6 +3,8 @@
 // #include "barry.hpp"
 
 class Killers{
+    protected:
+    int frame_speed=6;
     public:
     Killers();
     

@@ -3,9 +3,9 @@
 #include<iostream>
 // #include "Killers.hpp";
 // #include "collectables.hpp";
-#include "Zapper.hpp"
+#include "ZapperH.hpp"
+#include "ZapperV.hpp"
 #include "coins.hpp"
-#include "fx.hpp"
 
 // bool coin_check=true;
 
@@ -13,7 +13,7 @@ void JetpackJoyride::drawObjects(){
     // call draw functions of all the objects here
     // for (Tank*& t: tanks)
     
-    
+    b1->draw();  //draw Barry
 
     killer_iter = killer_holder.begin();   //assign the initial node to the iterator
     collector_iter = collector_holder.begin(); 
@@ -33,16 +33,8 @@ void JetpackJoyride::drawObjects(){
     for (collector_iter; collector_iter!=collector_holder.end();collector_iter++){ 
         // (**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos());  //loop to iterate over the list and remove the bullets that need to be removed
         (**collector_iter).draw();
-        // audio->effect('c');
         if ((**collector_iter).collision(b1->barry_x_pos(),b1->barry_y_pos())==true){
-            b1->score+=1;
-            audio->effect('c');
-            
-            
-        //     Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
-        //     collector_holder.erase(collector_iter); //remove the bullet object
-        //     delete new_ptr; //delete the pointer
-        //     cout<<"Coin deleted"<<endl;
+            b1->score+=5;
         }
         if ((**collector_iter).coin_delete()==true){  //if the zapper has to be removed
             Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
@@ -51,29 +43,11 @@ void JetpackJoyride::drawObjects(){
             cout<<"Coin deleted"<<endl;
         }
     }
-    b1->draw();  //draw Barry
-    // for(Killers*& k: killer_holder){
-    //     k->draw();  //draw the bullets
-    //     k->collision(b1->barry_x_pos(),b1->barry_y_pos());
-    // }
-    
-    // for(Collectables*& c: collector_holder){
-    //     c->draw();  //draw the bullets
-    //     coin_coll=c->collision(b1->barry_x_pos(),b1->barry_y_pos());
-    //     if (coin_coll==true){
-    //         Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
-    //         collector_holder.erase(collector_iter); //remove the bullet object
-    //         delete new_ptr; //delete the pointer
-    //         cout<<"Coin deleted"<<endl;
-    //     }
-    // }
-    
 }
 void JetpackJoyride::createBarry(){  //to make barry on the screen
 
     SDL_Rect mov_b = {353, 373, 51, 63}; 
     b1=new Barry(gRenderer, assets, mov_b);
-    
 }
 
 void JetpackJoyride::create_at_random(){
@@ -83,21 +57,31 @@ void JetpackJoyride::create_at_random(){
     int check=random_speed_controller%(random_speed+random_object_spacer);
     // if (random_object_spacer>=20 && random_object_spacer<=40){
     if(check==0){
-        int random_y_pos = rand()%400;
-        //we also need to implement a random selector
-        SDL_Rect mov_z = {1000, random_y_pos-25, 170, 55}; //fixed pos for testing
-        Killers* zap = new Zapper (gRenderer,assets, mov_z );
-        killer_holder.push_back(zap);
-        std::cout<<"Zapper created at: "<<1000<<" -- "<<random_y_pos<<std::endl;
+        int h_v=rand()%2;
+        if (h_v==0){
+            int random_y_pos = rand()%400;
+            //we also need to implement a random selector
+            SDL_Rect mov_z = {1000, random_y_pos-25, 170, 55}; //fixed pos for testing
+            Killers* zap = new Zapper_h (gRenderer,assets, mov_z );
+            killer_holder.push_back(zap);
+            std::cout<<"Zapper_h created at: "<<1000<<" -- "<<random_y_pos<<std::endl;
+        }
+        else{
+            int random_y_pos = rand()%290 + 30;
+            //we also need to implement a random selector
+            SDL_Rect mov_z = {1000, random_y_pos, 55, 170}; //fixed pos for testing
+            Killers* zap = new Zapper_v (gRenderer,assets, mov_z );
+            killer_holder.push_back(zap);
+            std::cout<<"Zapper_v created at: "<<1000<<" -- "<<random_y_pos<<std::endl;
+        }
     }
 
     // if (random_object_spacer>=50 && random_object_spacer<=70){
     if(check==3 && coin_check){
         coin_check=false;
-        
-        int rect_x=rand()%6 +4;
-        int rect_y=rand()%3 +1;
-        int random_y_pos = rand()%320 +20;
+        int rect_x=rand()%8 +4;
+        int rect_y=rand()%5 +2;
+        int random_y_pos = rand()%320 +25;
         for (int j=0; j<rect_y;j++){
             for(int i=0; i<rect_x;i++){
                 SDL_Rect mov_c={1000+(i*28), random_y_pos+(j*28),20,20};
@@ -106,15 +90,13 @@ void JetpackJoyride::create_at_random(){
                 std::cout<<"Coin created at: "<<1020<<" -- "<<random_y_pos<<std::endl;
             }
         }
-        // SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
+        SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
         coin_check=true;
     }
 }
 
 JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRenderer(renderer), assets(asst){
-    audio=   new FX();
-    audio->initialize();
-    audio->load();
+
 }
 
 void JetpackJoyride::fire_jetpack(){
@@ -145,5 +127,6 @@ JetpackJoyride::~JetpackJoyride(){  //destructor for the JetpackJoyride
     }
     collector_holder.clear();
     killer_holder.clear();
+    cout<<"Score "<<b1->score<<endl;
     cout<<"Everything destroyed!"<<endl;
 }

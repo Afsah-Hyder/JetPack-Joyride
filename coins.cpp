@@ -3,24 +3,23 @@
 #include "JetpackJoyride.hpp"
 using namespace std;
 
-Coins::Coins(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov): Unit(rend, ast), mover(mov){
+Coins::Coins(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
     cout<<"Coin created"<<endl;
-    src={388,0,22, 22};    //constructor, calls the parent class constructor and saves data to its own attributes too
-    // src={411,2,20,20};
-    // src={436,2,14,20};
-    // src={458,2,6,20};
-    // src={473,2,14,20};
-    // src={493,2,20,20};
+    src = {389,2, 20, 20};    //constructor, calls the parent class constructor and saves data to its own attributes too
 }
 
 void Coins::draw(){
-    if (invisible==true){
-        src = {0,0,0,0};
+    if (coll_check){
+        src={490,320,20,20};
+        Unit::draw(src, mover); 
+
     }
+    else{
     Unit::draw(src, mover); 
     mover.x-=4;
     animation();
     frame++;
+    }
 }
 
 bool Coins::coin_delete(){
@@ -34,17 +33,15 @@ bool Coins::coin_delete(){
 }
 
 bool Coins::collision(int barry_x, int barry_y){
-    if (barry_x>mover.x-10 and barry_x<(mover.x+mover.w+10)){
-        if ((barry_y<mover.y+(mover.h/2)+15)and (barry_y>mover.y-(mover.h/2)-15)){
-            cout<<"Barry collected a coin"<<endl;
-            invisible=true;
-            
-            return true;
+    if (barry_x>mover.x-2 and barry_x<(mover.x+mover.w+2)){
+        if ((barry_y<mover.y+(mover.h))and (barry_y>mover.y-(mover.h))){
+            coll_check=true;
+            return coll_check;
             //call score function
             // delete coin
         }
     }
-    return false;
+    return coll_check;
 }
 
 Coins::~Coins(){
@@ -52,26 +49,23 @@ Coins::~Coins(){
 }
 
 void Coins::animation(){
-    if (invisible==true){
-        src = {0,0,0,0};
-    }
     if (frame==1*frame_speed){
-        src = {388,0,22, 22};
+        src = {389,2, 20, 20};
     }
     else if (frame==2*frame_speed){
-        src={410, 0 ,22,22};
+        src={411,2,20,20};
     }
     else if(frame==3*frame_speed){
-        src={433, 0 ,22, 22};
+        src={436,2,14,20};
     }
     else if (frame==4*frame_speed){
-        src={450,0,22,22};
+        src={458,2,6,20};
     }
     else if (frame==5*frame_speed){
-        src={469,0,22,22};
+        src={473,2,14,20};
     }
     else if(frame==6*frame_speed){
-        src={492,0,22,22};
+        src={493,2,20,20};
         frame=0;
     }
     
