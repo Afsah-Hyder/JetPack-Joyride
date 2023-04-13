@@ -7,6 +7,7 @@
 #include "ZapperH.hpp"
 #include "ZapperV.hpp"
 #include "coins.hpp"
+#include "Missile.hpp"
 
 // bool coin_check=true;
 
@@ -23,7 +24,7 @@ void JetpackJoyride::drawObjects(){
         // (**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos());  //loop to iterate over the list and remove the bullets that need to be removed
         (**killer_iter).draw();
         (**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos());
-        if ((**killer_iter).zapper_delete()==true){  //if the zapper has to be removed
+        if ((**killer_iter).delete_item()==true){  //if the zapper has to be removed
             Killers* new_ptr=*killer_iter; //create a new pointer to the place the bullet to be removed is stored
             killer_holder.erase(killer_iter); //remove the bullet object
             delete new_ptr; //delete the pointer
@@ -70,6 +71,8 @@ void JetpackJoyride::create_at_random(){
         if (h_v==0){
             int random_y_pos = rand()%400;
             //we also need to implement a random selector
+
+
             SDL_Rect mov_z = {1000, random_y_pos-25, 170, 55}; //fixed pos for testing
             Killers* zap = new Zapper_h (gRenderer,assets, mov_z );
             killer_holder.push_back(zap);
@@ -84,12 +87,20 @@ void JetpackJoyride::create_at_random(){
             std::cout<<"Zapper_v created at: "<<1000<<" -- "<<random_y_pos<<std::endl;
         }
     }
+    else if(check==2){
+        //testing for bullets
+        SDL_Rect mov_bullet = {850,200,45,45};
+        Killers* missile = new Missile(gRenderer,assets, mov_bullet );
+        
+        killer_holder.push_back(missile);
+    }
 
-    // if (random_object_spacer>=50 && random_object_spacer<=70){
-    if(check==3 && coin_check){
+
+    //coin creation
+    else if(check==3 && coin_check){
         coin_check=false;
-        int rect_x=rand()%8 +4;
-        int rect_y=rand()%5 +2;
+        int rect_x=rand()%4 +4;
+        int rect_y=rand()%2 +2;
         int random_y_pos = rand()%320 +25;
         for (int j=0; j<rect_y;j++){
             for(int i=0; i<rect_x;i++){

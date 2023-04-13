@@ -6,7 +6,7 @@
 class Coins: public Collectables,public Unit{
     SDL_Rect src, mover;
     int frame=0;
-    int frame_speed=4;
+    int frame_speed=9;
     bool coll_check=false;
     bool invisible=false;
     public:

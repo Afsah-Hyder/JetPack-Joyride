@@ -260,6 +260,6 @@ void Game::run2(){
 			}
 		}
 		JetpackJoyride.create_at_random();
-		SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
+		SDL_Delay(9);	//causes sdl engine to delay for specified miliseconds
 	}
 }

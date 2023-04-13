@@ -20,7 +20,7 @@ class Zapper_h:public Killers, public Unit{
     
     void animation();
     ~Zapper_h();
-    bool zapper_delete() override;
+    bool delete_item() override;
 
 
 };

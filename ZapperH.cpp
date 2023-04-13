@@ -29,7 +29,7 @@ Zapper_h::~Zapper_h(){
     cout<<"Horizontal Zapper destroyed"<<endl;
 }
 
-bool Zapper_h::zapper_delete(){
+bool Zapper_h::delete_item(){
     if (mover.x < -150){
         return true;
     }
