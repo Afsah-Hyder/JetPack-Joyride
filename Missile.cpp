@@ -106,7 +106,7 @@ void Missile::animation(){
 
 
 bool Missile::delete_item(){
-    if (mover.x<-100){
+    if (mover.x<0){
         return true;
     }
     else{

@@ -11,5 +11,6 @@ class Killers{
     virtual void draw()=0;
     virtual void collision(int barry_x, int barry_y)=0;
     virtual bool delete_item()=0;
+    ~Killers();
 
 };

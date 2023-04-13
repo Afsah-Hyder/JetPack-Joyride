@@ -12,7 +12,7 @@ class Missile:public Killers, public Unit{
     bool seeking_on=true;  //to stop the missile from moving after it has locked on
     bool warning_sign=false;
     int timer=0;
-    int frame_speed = 9;
+    int frame_speed = 7;
 
     public:
     Missile(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);

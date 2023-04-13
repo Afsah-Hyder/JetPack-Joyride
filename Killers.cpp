@@ -14,5 +14,7 @@ Killers::Killers(){
 // }
 
 // void Killers::collision(){
+Killers::~Killers(){
 
+}
 // }
