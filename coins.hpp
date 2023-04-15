@@ -16,5 +16,6 @@ class Coins: public Collectables,public Unit{
     bool collision(int barry_x, int barry_y) override;
     void animation();
     bool coin_delete() override;
+    bool collected=false;
     ~Coins();
 };

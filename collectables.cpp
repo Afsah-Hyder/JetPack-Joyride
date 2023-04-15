@@ -9,3 +9,4 @@
 // }
 
 Collectables::Collectables(){}
+Collectables::~Collectables(){}

@@ -9,9 +9,9 @@ Missile::Missile(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend
     src = {575,278, 55, 55}; 
 
     //what you will now see if a very bad programming practise. Creating the audio class to play a single sound
-    launch_s = new FX();   //constructor, calls the parent class constructor and saves data to its own attributes too
-    launch_s->initialize();
-    launch_s->load();
+    // launch_s = new FX();   //constructor, calls the parent class constructor and saves data to its own attributes too
+    launch_s.initialize();
+    launch_s.load();
 }
 
 void Missile::draw(){
@@ -59,6 +59,8 @@ void Missile::collision(int barry_x, int barry_y){
 
 Missile::~Missile(){
     cout<<"Missile destroyed"<<endl;
+    // ~launch_s();
+
 }
 
 
@@ -115,5 +117,5 @@ bool Missile::delete_item(){
 }
 
 void Missile::launch_sound(){
-    launch_s->effect('m');
+    launch_s.effect('m');
 }

@@ -15,7 +15,7 @@ class JetpackJoyride{
     list <Collectables*> collector_holder;
     list<Collectables*>::iterator collector_iter;
     bool coin_check=true;
-
+    bool coin_collected_once=false;
     public:
     //function sketches
     Barry *b1;

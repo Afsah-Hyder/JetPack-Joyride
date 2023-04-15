@@ -24,12 +24,12 @@ class Missile:public Killers, public Unit{
     void collision(int barry_x, int barry_y) override;
     
     void animation();
-    ~Missile();
+    
     bool delete_item() override;
     void position_seeker(int barry_x, int barry_y);
-    FX* launch_s;
+    FX launch_s;
     void launch_sound();
-
+    ~Missile();
 
 
 };

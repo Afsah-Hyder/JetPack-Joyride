@@ -14,7 +14,7 @@
 void JetpackJoyride::drawObjects(){
     // call draw functions of all the objects here
     // for (Tank*& t: tanks)
-    
+    cout<<b1->score<<endl;
     
 
     killer_iter = killer_holder.begin();   //assign the initial node to the iterator

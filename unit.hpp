@@ -7,4 +7,5 @@ class Unit{
 public:
     Unit(SDL_Renderer*, SDL_Texture*);
     void draw(SDL_Rect srcRect, SDL_Rect moverRect);
+    virtual ~Unit();
 };
