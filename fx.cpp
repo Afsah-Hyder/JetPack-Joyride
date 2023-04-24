@@ -38,6 +38,19 @@ void FX::load()
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
     }   
+
+    laser_warmup = Mix_LoadWAV( "music/laser_warning.wav" );
+    if( laser_warmup == NULL )
+    {
+        printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+    }   
+
+    laser_fire = Mix_LoadWAV( "music/laser_fire_lp.wav" );
+    if( laser_fire == NULL )
+    {
+        printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+    }   
+
 }
 
 void FX::destroy()
@@ -46,11 +59,14 @@ void FX::destroy()
     Mix_FreeChunk( zapped);
     Mix_FreeChunk( coin );
     Mix_FreeChunk(missile);
-    // Mix_FreeChunk( die );
+    Mix_FreeChunk( laser_fire );
+    Mix_FreeChunk(laser_warmup);
     jetpack = NULL;
     zapped = NULL;
     coin = NULL;
     missile = NULL;
+    laser_fire=NULL;
+    laser_warmup=NULL;
     // touch = NULL;
 }
 
@@ -80,6 +96,18 @@ void FX::effect(char choice)
     if (choice == 'm')
     {
         Mix_PlayChannel( -1, missile, 0 );
+    }
+
+    if (choice == 'w')
+    {   
+        Mix_VolumeChunk(laser_warmup,32);
+        Mix_PlayChannel( -1, laser_warmup, 0 );
+    }
+
+    if (choice == 'l')
+    {
+        Mix_VolumeChunk(laser_fire,32);
+        Mix_PlayChannel( -1, laser_fire, 0 );
     }
 }
 

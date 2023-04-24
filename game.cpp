@@ -142,7 +142,7 @@ bool Game::run1( )
 	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
 	bool quit = false;
 	SDL_Event e;
-	JetpackJoyride JetpackJoyride(gRenderer, assets);
+	// JetpackJoyride JetpackJoyride(gRenderer, assets);
 	while( !quit ){
 		if( Mix_PlayingMusic() == 0 )
 			{	

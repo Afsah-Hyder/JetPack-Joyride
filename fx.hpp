@@ -9,6 +9,8 @@ class FX{
     Mix_Chunk *zapped = NULL;
     Mix_Chunk *coin = NULL;
     Mix_Chunk *missile = NULL;
+    Mix_Chunk *laser_warmup = NULL;
+    Mix_Chunk *laser_fire = NULL;
     // Mix_Chunk *stomp = NULL;
 
 public:

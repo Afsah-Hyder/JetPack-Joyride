@@ -31,4 +31,9 @@ class JetpackJoyride{
     int random_speed=160; //the greater the number, the slower the creation of random objects
     int random_object_spacer=0; //creates objects sepated by random distances
     ~JetpackJoyride();  //destructor
+    int laser_timer=0;
+    bool laser_only=false;
+    // bool laser_delay
+    public:
+    int score=0;
 };

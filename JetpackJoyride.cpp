@@ -8,13 +8,23 @@
 #include "ZapperV.hpp"
 #include "coins.hpp"
 #include "Missile.hpp"
-
+#include "Laser.hpp"
 // bool coin_check=true;
 
 void JetpackJoyride::drawObjects(){
     // call draw functions of all the objects here
     // for (Tank*& t: tanks)
-    cout<<b1->score<<endl;
+
+//counter for the laser to disable other killers
+    if (laser_only==true){
+        laser_timer++;
+        if (laser_timer>850){
+            laser_timer=0;
+            laser_only=false;
+        }
+    }
+
+    // cout<<b1->score<<endl;
     
 
     killer_iter = killer_holder.begin();   //assign the initial node to the iterator
@@ -62,9 +72,9 @@ void JetpackJoyride::create_at_random(){
     // std::cout<<"coin_check  "<<coin_check<<std::endl;
     random_speed_controller++;
     random_object_spacer = rand()%100;
-    int check=random_speed_controller%(random_speed+random_object_spacer+200);
+    int check=random_speed_controller%(random_speed+random_object_spacer+300);
     // if (random_object_spacer>=20 && random_object_spacer<=40){
-    if(check==0){
+    if(check==8 and laser_only==false){
         int h_v=rand()%2;
         if (h_v==0){
             int random_y_pos = rand()%400;
@@ -85,13 +95,32 @@ void JetpackJoyride::create_at_random(){
             // std::cout<<"Zapper_v created at: "<<1000<<" -- "<<random_y_pos<<std::endl;
         }
     }
-    else if(check==2){
+
+    else if(check==0 and laser_only==false){
+        //testing for bullets
+        // SDL_Rect mov_bullet = {850,200,45,45};
+        int y_laser = rand()%300;
+        SDL_Rect mov_laser = {0,y_laser,900,70};
+        // Killers* missile = new Missile(gRenderer,assets, mov_bullet );
+        Killers* laser = new Lasers(gRenderer,assets, mov_laser);
+        
+        // killer_holder.push_back(missile);
+        killer_holder.push_back(laser);
+        laser_only=true;
+    }
+
+    else if(check==2 and laser_only==false){
         //testing for bullets
         SDL_Rect mov_bullet = {850,200,45,45};
+        // SDL_Rect mov_laser = {50,200,750,200};
         Killers* missile = new Missile(gRenderer,assets, mov_bullet );
+        // Killers* laser = new Lasers(gRenderer,assets, mov_laser);
         
         killer_holder.push_back(missile);
+        // killer_holder.push_back(laser);
     }
+
+    
 
 
     //coin creation
