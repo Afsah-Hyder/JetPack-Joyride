@@ -9,8 +9,9 @@ class Killers{
     Killers();
     
     virtual void draw()=0;
-    virtual void collision(int barry_x, int barry_y)=0;
+    virtual bool collision(int barry_x, int barry_y)=0;
     virtual bool delete_item()=0;
     virtual ~Killers();
+    // virtual bool barry_collided=0;
 
 };

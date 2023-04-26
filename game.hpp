@@ -35,7 +35,7 @@ class Game{
 public:
     Mix_Music *bgMusic = NULL;
     Mix_Music *jetpacksound = NULL;
-    int bgspeed;
+    float bgspeed;
     bool init();
     bool loadMedia();
     void close();

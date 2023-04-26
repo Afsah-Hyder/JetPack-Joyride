@@ -30,16 +30,18 @@ void Lasers::draw()
     }
 }
 
-void Lasers::collision(int barry_x, int barry_y)
+bool Lasers::collision(int barry_x, int barry_y)
 {   if (running_time!=0){
     if (barry_x > mover.x - 100 && barry_x < (mover.x + mover.w + 100))
     {
         if ((barry_y < mover.y + (mover.h / 2)) && (barry_y > mover.y - (mover.h / 2)))
         {
             cout << "Barry collided with the laser" << endl;
+            return true;
         }
     }
     }
+    return false;
 }
 
 Lasers::~Lasers()

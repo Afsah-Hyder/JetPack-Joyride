@@ -21,7 +21,7 @@ class Missile:public Killers, public Unit{
     
     // int zapper_x = mover.x;
     // int barry_y;
-    void collision(int barry_x, int barry_y) override;
+    bool collision(int barry_x, int barry_y) override;
     
     void animation();
     
@@ -29,6 +29,7 @@ class Missile:public Killers, public Unit{
     void position_seeker(int barry_x, int barry_y);
     FX launch_s;
     void launch_sound();
+    
     ~Missile();
 
 

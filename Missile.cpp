@@ -19,13 +19,13 @@ void Missile::draw(){
     Unit::draw(src, mover); 
     // cout<<"Missile drawn"<<endl;
     // mover.x -=4;
-    if (timer==400){
+    if (timer==350){
         seeking_on=false;
     }
     if(seeking_on==false){
 
         animation();
-        mover.x-=10;
+        mover.x-=8;
         frame++;
         
         
@@ -46,15 +46,18 @@ void Missile::position_seeker(int barry_x, int barry_y){
 }
 
 
-void Missile::collision(int barry_x, int barry_y){
+bool Missile::collision(int barry_x, int barry_y){
     if (seeking_on==true){
     position_seeker(barry_x,barry_y);
+
     }
     if (barry_y>mover.y-2 and barry_y<(mover.y+mover.h+2)){
         if ((barry_x<mover.x+(mover.w/2))and (barry_x>mover.x-(mover.w/2))){
             cout<<"Barry collided with Missile"<<endl;
+            return true;
         }
     }
+        return false;
 }
 
 Missile::~Missile(){

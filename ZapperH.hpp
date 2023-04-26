@@ -16,7 +16,7 @@ class Zapper_h:public Killers, public Unit{
     
     int zapper_x = mover.x;
     // int barry_y;
-    void collision(int barry_x, int barry_y) override;
+    bool collision(int barry_x, int barry_y) override;
     
     void animation();
     ~Zapper_h();

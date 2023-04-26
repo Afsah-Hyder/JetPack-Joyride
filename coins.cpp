@@ -29,15 +29,17 @@ bool Coins::coin_delete(){
 }
 
 bool Coins::collision(int barry_x, int barry_y){
+    if (collect_once_only==false){
     if (barry_x>mover.x-10 and barry_x<(mover.x+mover.w+10)){
         if ((barry_y<mover.y+(mover.h/2)+15)and (barry_y>mover.y-(mover.h/2)-15)){
             cout<<"Barry collected a coin"<<endl;
             invisible=true;
-            
+            collect_once_only=true;
             return true;
             //call score function
             // delete coin
         }
+    }
     }
     return false;
 }

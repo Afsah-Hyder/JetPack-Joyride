@@ -2,7 +2,7 @@
 #include "JetpackJoyride.hpp"
 #include<vector>
 #include "fx.hpp"
-int bg_speed=4;
+float bg_speed=4;
 // int bg_selector=0;
 // int x;
 bool Game::init()
@@ -193,6 +193,7 @@ void Game::run2(){
 	bool quit = false;
 	SDL_Event e;
 	JetpackJoyride JetpackJoyride(gRenderer, assets);
+	
 	FX effects;
 	effects.initialize();
 	effects.load();
@@ -202,9 +203,7 @@ void Game::run2(){
 		
 		if( Mix_PlayingMusic() == 0 )
 			{	
-				// effects.effect('c');
-				// Mix_PlayMusic(jetpacksound,0);
-				// Play the music
+				
 				Mix_PlayMusic( bgMusic,-1 );
 			}
 		
@@ -241,7 +240,23 @@ void Game::run2(){
 				
 					
 				}
+
+			
 		}
+		//to control speed of objects
+		JetpackJoyride.object_speed=bg_speed;
+
+		//to increase speed as game progresses
+		// if (JetpackJoyride.game_end==false){
+		// 	bg_speed = bg_speed + 0.001;
+		// }
+
+
+		if (JetpackJoyride.game_end==true){
+				if(bg_speed>0){
+					bg_speed = bg_speed*0.993;
+				}
+			}	
 		
 		SDL_RenderClear(gRenderer); //removes everything from renderer
 		SDL_RenderCopy(gRenderer, gTexture, NULL, &bgRect);//Draws background to renderer

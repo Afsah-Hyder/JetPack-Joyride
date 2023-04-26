@@ -17,12 +17,16 @@ void Zapper_h::draw(){
     frame++;
 }
 
-void Zapper_h::collision(int barry_x, int barry_y){
+bool Zapper_h::collision(int barry_x, int barry_y){
     if (barry_x>mover.x-10 and barry_x<(mover.x+mover.w+10)){
         if ((barry_y<mover.y+(mover.h/2))and (barry_y>mover.y-(mover.h/2))){
             cout<<"Barry collided horizontal zapper"<<endl;
+            return true;
         }
     }
+    
+    return false;
+    
 }
 
 Zapper_h::~Zapper_h(){

@@ -17,7 +17,7 @@ class Lasers:public Killers, public Unit
 
     int laser_x = mover.x;
 
-    void collision(int barry_x, int barry_y) override;
+    bool collision(int barry_x, int barry_y) override;
 
     void animation();
 

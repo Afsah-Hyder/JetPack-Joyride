@@ -6,14 +6,7 @@
 
 Killers::Killers(){
 }
-// }
-// void Killers::draw(){
-//     Unit::draw(src, mover);
-// }
-    // Unit::draw(src, mover); 
-// }
 
-// void Killers::collision(){
 Killers::~Killers(){
 
 }

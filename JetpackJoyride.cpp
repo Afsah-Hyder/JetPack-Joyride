@@ -9,24 +9,30 @@
 #include "coins.hpp"
 #include "Missile.hpp"
 #include "Laser.hpp"
+#include <string.h>
 
 // bool coin_check=true;
 
 void JetpackJoyride::drawObjects(){
     // call draw functions of all the objects here
-    // for (Tank*& t: tanks)
+   
 
-//counter for the laser to disable other killers
-    
+
+    cout<<"Barry has "<<b1->score<<" coins."<<endl;
     units->draw();
     tens->draw();
     hundreds->draw();
+    units_c->draw();
+    tens_c->draw();
+    hundreds_c->draw();
+    if (game_end==false){
     delay_counter++;
-    if (delay_counter%10==0){
+    }
+    if ((delay_counter%10==0) and game_end==false){
 
     ++(*units);
     }
-    if (delay_counter%100==0){
+    if ((delay_counter%100==0) and game_end==false){
         ++(*tens);
         // cout<<"Tens increased"<<endl;
     }
@@ -36,9 +42,21 @@ void JetpackJoyride::drawObjects(){
         // cout<<"Tens increased"<<endl;
     }
 
+    if (units_c->counter>10){
+        ++(*tens_c);
+        units_c->counter=0;
+    }
 
+    if (tens_c->counter>10){
+        ++(*hundreds_c);
+        tens_c->counter=0;
+    }
+
+
+    meter_symbol->draw({639,17,30,38},{118, 25,30,28});
+    coin_symbol->draw({388,1,21,21},{118, 60,21,21} );
     
-
+    //counter for the laser to disable other killers
     if (laser_only==true){
         laser_timer++;
         if (laser_timer>850){
@@ -56,7 +74,12 @@ void JetpackJoyride::drawObjects(){
     for (killer_iter; killer_iter!=killer_holder.end();killer_iter++){ 
         // (**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos());  //loop to iterate over the list and remove the bullets that need to be removed
         (**killer_iter).draw();
-        (**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos());
+
+        if((**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos())==true){
+            b1->death = true;
+            cout<<"Barry killed"<<endl;
+            game_end=true;
+        }
         if ((**killer_iter).delete_item()==true){  //if the zapper has to be removed
             Killers* new_ptr=*killer_iter; //create a new pointer to the place the bullet to be removed is stored
             killer_holder.erase(killer_iter); //remove the bullet object
@@ -68,9 +91,11 @@ void JetpackJoyride::drawObjects(){
     for (collector_iter; collector_iter!=collector_holder.end();collector_iter++){ 
         
         (**collector_iter).draw();
+        
         // audio->effect('c');
         if ((**collector_iter).collision(b1->barry_x_pos(),b1->barry_y_pos())==true){
             b1->score+=1;
+            ++(*units_c);
             audio->effect('c');
             
         }
@@ -92,7 +117,7 @@ void JetpackJoyride::createBarry(){  //to make barry on the screen
 }
 
 void JetpackJoyride::create_at_random(){
-    // std::cout<<"coin_check  "<<coin_check<<std::endl;
+    if (game_end==false){
     random_speed_controller++;
     random_object_spacer = rand()%100;
     int check=random_speed_controller%(random_speed+random_object_spacer+200);
@@ -166,6 +191,7 @@ void JetpackJoyride::create_at_random(){
         // SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
         coin_check=true;
     }
+    }
 }
 
 JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRenderer(renderer), assets(asst){
@@ -178,6 +204,16 @@ JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRende
     units = new ScoreCounter(gRenderer, assets, mov_u);
     tens = new ScoreCounter(gRenderer, assets, mov_t);
     hundreds = new ScoreCounter(gRenderer, assets, mov_h);
+    meter_symbol = new Unit(gRenderer, assets);
+
+    //coin counter stuff
+    SDL_Rect mov_uc = {86,53,25,31};
+    SDL_Rect mov_tc = {60,53,25,31};
+    SDL_Rect mov_hc = {35,53,25,31};
+    units_c = new CoinCounter(gRenderer, assets, mov_uc);
+    tens_c = new CoinCounter(gRenderer, assets, mov_tc);
+    hundreds_c = new CoinCounter(gRenderer, assets, mov_hc);
+    coin_symbol = new Unit(gRenderer, assets);
 
 }
 
@@ -212,3 +248,4 @@ JetpackJoyride::~JetpackJoyride(){  //destructor for the JetpackJoyride
     cout<<"Score "<<b1->score<<endl;
     cout<<"Everything destroyed!"<<endl;
 }
+
