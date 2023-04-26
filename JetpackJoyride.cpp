@@ -9,6 +9,7 @@
 #include "coins.hpp"
 #include "Missile.hpp"
 #include "Laser.hpp"
+
 // bool coin_check=true;
 
 void JetpackJoyride::drawObjects(){
@@ -16,6 +17,28 @@ void JetpackJoyride::drawObjects(){
     // for (Tank*& t: tanks)
 
 //counter for the laser to disable other killers
+    
+    units->draw();
+    tens->draw();
+    hundreds->draw();
+    delay_counter++;
+    if (delay_counter%10==0){
+
+    ++(*units);
+    }
+    if (delay_counter%100==0){
+        ++(*tens);
+        // cout<<"Tens increased"<<endl;
+    }
+
+    if (delay_counter%1000==0){
+        ++(*hundreds);
+        // cout<<"Tens increased"<<endl;
+    }
+
+
+    
+
     if (laser_only==true){
         laser_timer++;
         if (laser_timer>850){
@@ -72,7 +95,7 @@ void JetpackJoyride::create_at_random(){
     // std::cout<<"coin_check  "<<coin_check<<std::endl;
     random_speed_controller++;
     random_object_spacer = rand()%100;
-    int check=random_speed_controller%(random_speed+random_object_spacer+300);
+    int check=random_speed_controller%(random_speed+random_object_spacer+200);
     // if (random_object_spacer>=20 && random_object_spacer<=40){
     if(check==8 and laser_only==false){
         int h_v=rand()%2;
@@ -99,6 +122,8 @@ void JetpackJoyride::create_at_random(){
     else if(check==0 and laser_only==false){
         //testing for bullets
         // SDL_Rect mov_bullet = {850,200,45,45};
+        int laser_occurance_reducer = rand()%10;
+        if (laser_occurance_reducer>7){
         int y_laser = rand()%300;
         SDL_Rect mov_laser = {0,y_laser,900,70};
         // Killers* missile = new Missile(gRenderer,assets, mov_bullet );
@@ -107,6 +132,7 @@ void JetpackJoyride::create_at_random(){
         // killer_holder.push_back(missile);
         killer_holder.push_back(laser);
         laser_only=true;
+        }
     }
 
     else if(check==2 and laser_only==false){
@@ -146,6 +172,13 @@ JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRende
     audio=   new FX();
     audio->initialize();
     audio->load();
+    SDL_Rect mov_u = {86,10,36,45};
+    SDL_Rect mov_t = {54,10,36,45};
+    SDL_Rect mov_h = {22,10,36,45};
+    units = new ScoreCounter(gRenderer, assets, mov_u);
+    tens = new ScoreCounter(gRenderer, assets, mov_t);
+    hundreds = new ScoreCounter(gRenderer, assets, mov_h);
+
 }
 
 void JetpackJoyride::fire_jetpack(){

@@ -5,6 +5,7 @@
 #include "collectables.hpp"
 #include "fx.hpp"
 #include<list>
+#include "score_counter.hpp"
 using namespace std;
 class JetpackJoyride{
     
@@ -33,6 +34,13 @@ class JetpackJoyride{
     ~JetpackJoyride();  //destructor
     int laser_timer=0;
     bool laser_only=false;
+    int unit_counter=0;
+    int tens_counter=0;
+    int hundreds_counter=0;
+    ScoreCounter* units;
+    ScoreCounter* tens;
+    ScoreCounter* hundreds;
+    int delay_counter=0;
     // bool laser_delay
     public:
     int score=0;
