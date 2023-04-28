@@ -7,6 +7,7 @@
 #include<list>
 #include "score_counter.hpp"
 #include "coin_counter.hpp"
+#include "wreaking_ball.hpp"
 using namespace std;
 class JetpackJoyride{
     

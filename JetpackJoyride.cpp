@@ -9,7 +9,8 @@
 #include "coins.hpp"
 #include "Missile.hpp"
 #include "Laser.hpp"
-#include <string.h>
+// #include <string.h>
+#include "wreaking_ball.hpp"
 
 // bool coin_check=true;
 
@@ -58,20 +59,6 @@ void JetpackJoyride::drawObjects(){
     //     ++(*hundreds_c);
     //     tens_c->counter=0;
     // }
-
-    // b1->score = 351;
-    // hundreds_c->counter = b1->score%100;
-    // cout<<"Hundreds coins"<<b1->score%100<<endl;
-    // score = score - 100*(b1->score%100);
-    // tens_c->counter = b1->score%10;
-    // cout<<"Tens coins"<<b1->score%10<<endl;
-    // score = score - 10*(b1->score%10);
-    // units_c->counter = score;
-    // cout<<"Units coins"<<b1->score<<endl;
-    // units_c->counter=b1->score%10;
-    // score = score%10;
-    // tens_c->counter=b1->score%10;
-    // score = score%10;
 
     
 
@@ -153,7 +140,10 @@ void JetpackJoyride::create_at_random(){
 
             SDL_Rect mov_z = {1000, random_y_pos-25, 170, 55}; //fixed pos for testing
             Killers* zap = new Zapper_h (gRenderer,assets, mov_z );
+
+            
             killer_holder.push_back(zap);
+            
             // std::cout<<"Zapper_h created at: "<<1000<<" -- "<<random_y_pos<<std::endl;
         }
         else{
@@ -191,6 +181,15 @@ void JetpackJoyride::create_at_random(){
         
         killer_holder.push_back(missile);
         // killer_holder.push_back(laser);
+    }
+
+    else if(check==5 and laser_only==false){
+        int ball_occurance_reducer = rand()%10;
+        if (ball_occurance_reducer>7){
+        SDL_Rect mov_b = {850, 200, 45, 45};
+        Killers *ball = new WreakingBall(gRenderer,assets,mov_b);
+        killer_holder.push_back(ball);
+        }
     }
 
     

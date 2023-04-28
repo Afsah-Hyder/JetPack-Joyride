@@ -51,6 +51,12 @@ void FX::load()
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
     }   
 
+    ball = Mix_LoadWAV( "music/balleffect.wav" );
+    if( ball == NULL )
+    {
+        printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
+    }   
+
 }
 
 void FX::destroy()
@@ -61,12 +67,14 @@ void FX::destroy()
     Mix_FreeChunk(missile);
     Mix_FreeChunk( laser_fire );
     Mix_FreeChunk(laser_warmup);
+    Mix_FreeChunk(ball);
     jetpack = NULL;
     zapped = NULL;
     coin = NULL;
     missile = NULL;
     laser_fire=NULL;
     laser_warmup=NULL;
+    ball = NULL;
     // touch = NULL;
 }
 
@@ -108,6 +116,12 @@ void FX::effect(char choice)
     {
         Mix_VolumeChunk(laser_fire,32);
         Mix_PlayChannel( -1, laser_fire, 0 );
+    }
+
+    if (choice == 'b'){
+        Mix_PlayChannel(-1,ball,0);
+        cout<<"ball sound"<<endl;
+        Mix_VolumeChunk(ball,64);
     }
 }
 
