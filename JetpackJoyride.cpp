@@ -16,9 +16,16 @@
 void JetpackJoyride::drawObjects(){
     // call draw functions of all the objects here
    
+    if (units_c->counter>9){
+        units_c->add(tens_c);
+        units_c->counter=0;
+    }
+    if (tens_c->counter>9){
+        tens_c->add(hundreds_c);
+        tens_c->counter=0;
+    }
 
-
-    cout<<"Barry has "<<b1->score<<" coins."<<endl;
+    // cout<<"Barry has "<<b1->score<<" coins."<<endl;
     units->draw();
     tens->draw();
     hundreds->draw();
@@ -42,16 +49,31 @@ void JetpackJoyride::drawObjects(){
         // cout<<"Tens increased"<<endl;
     }
 
-    if (units_c->counter>10){
-        ++(*tens_c);
-        units_c->counter=0;
-    }
+    // if (units_c->counter==10){
+    //     ++(*tens_c);
+    //     units_c->counter=0;
+    // }
 
-    if (tens_c->counter>10){
-        ++(*hundreds_c);
-        tens_c->counter=0;
-    }
+    // if (tens_c->counter==10){
+    //     ++(*hundreds_c);
+    //     tens_c->counter=0;
+    // }
 
+    // b1->score = 351;
+    // hundreds_c->counter = b1->score%100;
+    // cout<<"Hundreds coins"<<b1->score%100<<endl;
+    // score = score - 100*(b1->score%100);
+    // tens_c->counter = b1->score%10;
+    // cout<<"Tens coins"<<b1->score%10<<endl;
+    // score = score - 10*(b1->score%10);
+    // units_c->counter = score;
+    // cout<<"Units coins"<<b1->score<<endl;
+    // units_c->counter=b1->score%10;
+    // score = score%10;
+    // tens_c->counter=b1->score%10;
+    // score = score%10;
+
+    
 
     meter_symbol->draw({639,17,30,38},{118, 25,30,28});
     coin_symbol->draw({388,1,21,21},{118, 60,21,21} );

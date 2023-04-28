@@ -26,7 +26,7 @@ void Lasers::draw()
         animation();
         frame++;
         running_time++;
-        cout<<"Laser running for: "<<running_time<<endl;
+        // cout<<"Laser running for: "<<running_time<<endl;
     }
 }
 

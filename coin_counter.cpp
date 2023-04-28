@@ -57,6 +57,12 @@ CoinCounter::~CoinCounter(){
     cout<<"Horizontal Zapper destroyed"<<endl;
 }
 
+
+void CoinCounter::add(CoinCounter *obj){
+    obj->counter++;
+    // counter=0;
+}
+
 void CoinCounter::operator ++ ( ){
     // cout<<"I AM CALLED";
     // trigger=false;
@@ -65,10 +71,11 @@ void CoinCounter::operator ++ ( ){
     //     trigger =false;
     // }
     // counter=
-    trigger=false;
-    if (counter==11){
-        trigger=true;
-        counter=0;
+    // trigger=false;
+    // if (counter==10){
+    //     trigger=true;
+        // counter=0;
+        // trigger=false;
 
     }
     
@@ -77,5 +84,5 @@ void CoinCounter::operator ++ ( ){
     //     counter =0;
     //     trigger=false;
     // }
-}
+// }
 

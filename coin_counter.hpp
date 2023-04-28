@@ -23,6 +23,7 @@ class CoinCounter:public Unit{
     // void animation();
     ~CoinCounter();
     void operator++();
+    void add(CoinCounter *obj);
     // bool delete_item() override;
 
 

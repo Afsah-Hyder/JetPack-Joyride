@@ -52,7 +52,7 @@ bool Missile::collision(int barry_x, int barry_y){
 
     }
     if (barry_y>mover.y-2 and barry_y<(mover.y+mover.h+2)){
-        if ((barry_x<mover.x+(mover.w/2))and (barry_x>mover.x-(mover.w/2))){
+        if ((barry_x<mover.x+(mover.w/2)-3)and (barry_x>mover.x-(mover.w/2)+3)){
             cout<<"Barry collided with Missile"<<endl;
             return true;
         }
