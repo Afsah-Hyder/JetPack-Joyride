@@ -45,13 +45,25 @@ bool Zapper_h::delete_item(){
 
 void Zapper_h::animation(){
     if (frame==1*frame_speed){
-        src = {0,445, 223, 72};
+        src = {20,451, 180, 58};
         // SDL_Delay(40);
         // frames++;
     }
 
     else if (frame==2*frame_speed){
-        src = {1,520,223,80};
+        src = {20,530, 180, 58};
+        // SDL_Delay(40);
+        // frame=0;
+    }
+
+    else if (frame==3*frame_speed){
+        src = {771,450, 180, 58};
+        // SDL_Delay(40);
+        // frame=0;
+    }
+
+    else if (frame==4*frame_speed){
+        src = {772,529, 180, 58};
         // SDL_Delay(40);
         frame=0;
     }

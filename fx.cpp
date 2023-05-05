@@ -51,7 +51,7 @@ void FX::load()
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
     }   
 
-    ball = Mix_LoadWAV( "music/balleffect.wav" );
+    ball = Mix_LoadWAV( "music/balleffect2.wav" );
     if( ball == NULL )
     {
         printf( "Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError() );

@@ -43,11 +43,20 @@ bool Zapper_v::delete_item(){
 
 void Zapper_v::animation(){
     if (frame==1*frame_speed){
-        src = {10,227, 73, 199};
+        src = {18,234, 55, 185};
     }
 
     else if (frame==2*frame_speed){
-        src = {323,236,70,190};
+        src = {123,234, 55, 185};
+        // frame=0;
+    }
+
+    else if (frame==3*frame_speed){
+        src = {230,234, 55, 185};
+        // frame=0;
+    }
+    else if (frame==4*frame_speed){
+        src = {336,234, 55, 185};
         frame=0;
     }
 }
