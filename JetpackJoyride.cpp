@@ -192,7 +192,7 @@ void JetpackJoyride::create_at_random(){
 
     //score booster creation
     else if(check==4){
-        SDL_Rect mov_b={950,rand()%320 +25, 25,25};
+        SDL_Rect mov_b={950,rand()%320 +25, 45,45};
         Collectables* booster_rect=new Score_booster(gRenderer,assets,mov_b);
         collector_holder.push_back(booster_rect);
     }    

@@ -7,6 +7,7 @@ using namespace std;
 Score_booster::Score_booster(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
     cout<<"Booster created"<<endl;
     src = {382,46, 52, 53};    //constructor, calls the parent class constructor and saves data to its own attributes too
+    mover.x=1000;
 }
 
 void Score_booster::draw(){
@@ -14,7 +15,14 @@ void Score_booster::draw(){
         src = {0,0,0,0};
     }
     Unit::draw(src, mover); 
-    mover.x-=4;
+    mover.x-=3;
+    mover.y = mover.y + up_down_movt;
+    if (mover.y<30){
+        up_down_movt = -1*up_down_movt;
+    }
+    if (mover.y>350){
+        up_down_movt = -1*up_down_movt;
+    }
     animation();
     frame++;
 }
