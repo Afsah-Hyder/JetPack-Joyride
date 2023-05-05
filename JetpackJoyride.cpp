@@ -1,15 +1,13 @@
 #include "JetpackJoyride.hpp"
 #include "barry.hpp"
 #include<iostream>
-// #include "Killers.hpp"
-// #include "collectables.hpp";
 #include "fx.hpp"
 #include "ZapperH.hpp"
 #include "ZapperV.hpp"
 #include "coins.hpp"
 #include "Missile.hpp"
 #include "Laser.hpp"
-// #include <string.h>
+#include "scoreboost.hpp"
 #include "wreaking_ball.hpp"
 
 // bool coin_check=true;
@@ -192,7 +190,12 @@ void JetpackJoyride::create_at_random(){
         }
     }
 
-    
+    //score booster creation
+    else if(check==4){
+        SDL_Rect mov_b={950,rand()%320 +25, 25,25};
+        Collectables* booster_rect=new Score_booster(gRenderer,assets,mov_b);
+        collector_holder.push_back(booster_rect);
+    }    
 
 
     //coin creation
