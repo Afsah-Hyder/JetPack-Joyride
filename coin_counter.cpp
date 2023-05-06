@@ -5,7 +5,7 @@
 using namespace std;
 
 CoinCounter::CoinCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
-    cout<<"Zapper created"<<endl;
+    cout<<"coin counter created"<<endl;
     src = {682,8, 35, 54};    //constructor, calls the parent class constructor and saves data to its own attributes too
 }
 
@@ -54,7 +54,7 @@ void CoinCounter::draw(){
 }
 
 CoinCounter::~CoinCounter(){
-    cout<<"Horizontal Zapper destroyed"<<endl;
+    cout<<"Coin destroyed"<<endl;
 }
 
 

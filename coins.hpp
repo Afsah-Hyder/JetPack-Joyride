@@ -14,7 +14,7 @@ class Coins: public Collectables,public Unit{
     Coins(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
     void draw();
     // void disappear();
-    bool collision(int barry_x, int barry_y) override;
+    int collision(int barry_x, int barry_y) override;
     void animation();
     bool coin_delete() override;
     bool collected=false;

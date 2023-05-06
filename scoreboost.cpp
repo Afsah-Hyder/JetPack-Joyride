@@ -1,5 +1,4 @@
 #include "scoreboost.hpp"    
-
 #include <iostream>
 #include "JetpackJoyride.hpp"
 using namespace std;
@@ -37,18 +36,18 @@ bool Score_booster::coin_delete(){
     }
 }
 
-bool Score_booster::collision(int barry_x, int barry_y){
+int Score_booster::collision(int barry_x, int barry_y){
     if (collect_once_only==false){
-    if (barry_y>mover.y-10 and barry_y<(mover.y+mover.h+10)){
-        if ((barry_x<mover.x+(mover.w/2)+15)and (barry_x>mover.x-(mover.w/2)-15)){
+    if (barry_x>mover.x-10 and barry_x<(mover.x+mover.w+10)){
+        if ((barry_y<mover.y+(mover.h/2)+15)and (barry_y>mover.y-(mover.h/2)-15)){
             cout<<"Barry collected a booster"<<endl;
             invisible=true;
             collect_once_only=true;
-            return true;
+            return 2;
         }
     }
     }
-    return false;
+    return 0;
 }
 
 Score_booster::~Score_booster(){

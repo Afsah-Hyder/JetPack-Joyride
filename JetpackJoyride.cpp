@@ -31,6 +31,7 @@ void JetpackJoyride::drawObjects(){
     units_c->draw();
     tens_c->draw();
     hundreds_c->draw();
+
     if (game_end==false){
     delay_counter++;
     }
@@ -98,13 +99,19 @@ void JetpackJoyride::drawObjects(){
     for (collector_iter; collector_iter!=collector_holder.end();collector_iter++){ 
         
         (**collector_iter).draw();
-        
+        int x=(**collector_iter).collision(b1->barry_x_pos(),b1->barry_y_pos());
         // audio->effect('c');
-        if ((**collector_iter).collision(b1->barry_x_pos(),b1->barry_y_pos())==true){
+        if (x==1){
             b1->score+=1;
             ++(*units_c);
-            audio->effect('c');
-            
+            audio->effect('c'); 
+        }
+        else if (x==2){
+            cout<<"boosted"<<endl;
+            b1->score+=10;
+            // ++(*tens_c);
+            units_c->add(tens_c);
+            audio->effect('c'); 
         }
         if ((**collector_iter).coin_delete()==true){  //if the zapper has to be removed
             Collectables* new_ptr=*collector_iter; //create a new pointer to the place the bullet to be removed is stored
