@@ -12,7 +12,7 @@ class CoinCounter:public Unit{
     
     
     public:
-    CoinCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
+    CoinCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov, int cnt=0);
     void draw();
     bool trigger=false;
     int counter=0;
@@ -24,6 +24,7 @@ class CoinCounter:public Unit{
     ~CoinCounter();
     void operator++();
     void add(CoinCounter *obj);
+    void reposition(int x, int y);
     // bool delete_item() override;
 
 

@@ -30,12 +30,14 @@ class JetpackJoyride{
     void fire_jetpack();
     void jetpack_off();
     void create_at_random();
+    // bool end_game();
     int random_speed_controller=0;
     int random_speed=160; //the greater the number, the slower the creation of random objects
     int random_object_spacer=0; //creates objects sepated by random distances
     ~JetpackJoyride();  //destructor
     int laser_timer=0;
     bool laser_only=false;
+    bool repositioned=false;
     // int unit_counter=0;
     // int tens_counter=0;
     // int hundreds_counter=0;
@@ -53,12 +55,15 @@ class JetpackJoyride{
     CoinCounter* hundreds_c;
     Unit* coin_symbol;
 
+    Unit* end_screen;
     // SDL_Rect meter_pos = {639,17,30,38};
 
     int delay_counter=0;
+    int dying_counter=0;
     // bool laser_delay
     public:
-    int score=0;
+    // int score=0;
+    // int distance=0;
     bool game_end=false;
     float object_speed;
 };

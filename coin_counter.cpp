@@ -4,9 +4,17 @@
 // #include "JetpackJoyride.hpp"
 using namespace std;
 
-CoinCounter::CoinCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
+CoinCounter::CoinCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov, int cnt):  Unit(rend, ast), mover(mov){
     cout<<"coin counter created"<<endl;
     src = {682,8, 35, 54};    //constructor, calls the parent class constructor and saves data to its own attributes too
+    counter=cnt;
+}
+
+void CoinCounter::reposition(int x, int y){
+    mover.x+=x;
+    mover.y+=y;
+    mover.w=50;
+    mover.h=65;
 }
 
 void CoinCounter::draw(){

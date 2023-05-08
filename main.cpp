@@ -24,6 +24,7 @@ int main(int argc, char *argv[]){
         switch (screen){
             case 0:
             case 1:
+            case 3:
                 run_check=game.run1();
                 if (run_check==false){
                     i=999;
@@ -33,8 +34,14 @@ int main(int argc, char *argv[]){
                 }
                 break;
             case 2:
-                game.run2();
-                i=999;
+                run_check=game.run2();
+                if(run_check){
+                    i=2;
+                }
+                else{
+                    i=999;
+                }
+                
                 break;
             default:
                 break;

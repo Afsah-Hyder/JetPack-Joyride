@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <SDL_mixer.h>
-
+#include "score_counter.hpp"
+#include "coin_counter.hpp"
 
 class Game{
     //Screen dimension constants
@@ -28,10 +29,17 @@ class Game{
     // SDL_Texture* bg6 = NULL;
     //global reference to png image sheets
     SDL_Texture* assets=NULL;
-    const char* screen[3]={"Start_screen.jpeg","Instructions_screen.jpeg","Sector1_new_2.png"};
+    const char* screen[4]={"Start_screen.jpeg","Instructions_screen.jpeg","Sector1_new_2.png","end_screen_transparent.jpeg"};
     int bg_selector=0;
-    
+    int score=0;
+    int distance=0;
 
+    ScoreCounter* units;
+    ScoreCounter* tens;
+    ScoreCounter* hundreds;
+    CoinCounter* units_c;
+    CoinCounter* tens_c;
+    CoinCounter* hundreds_c;
 public:
     Mix_Music *bgMusic = NULL;
     Mix_Music *jetpacksound = NULL;
@@ -42,5 +50,5 @@ public:
     // SDL_Rect bgRect;
     SDL_Texture* loadTexture( std::string path );
     bool run1();
-    void run2();
+    bool run2();
 };

@@ -4,9 +4,17 @@
 // #include "JetpackJoyride.hpp"
 using namespace std;
 
-ScoreCounter::ScoreCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
-    cout<<"Zapper created"<<endl;
+ScoreCounter::ScoreCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov,int cnt):  Unit(rend, ast), mover(mov){
+    cout<<"score counter created"<<endl;
     src = {682,8, 35, 54};    //constructor, calls the parent class constructor and saves data to its own attributes too
+    counter=cnt;
+}
+
+void ScoreCounter::reposition(int x, int y){
+    mover.x+=x;
+    mover.y+=y;
+    mover.w=80;
+    mover.h=110;
 }
 
 void ScoreCounter::draw(){

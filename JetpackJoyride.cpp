@@ -14,7 +14,25 @@
 
 void JetpackJoyride::drawObjects(){
     // call draw functions of all the objects here
-   
+   if(dying_counter>=1){
+    dying_counter+=1;
+   }
+    // end_screen->draw({1042, 248, 632, 323}, {0,0,900,460});
+    if(dying_counter>=250){
+    end_screen->draw({1042, 248, 632, 323}, {0,0,900,460});
+    if (repositioned==false){
+        units_c->reposition(440, 242);
+        tens_c->reposition(410, 242);
+        hundreds_c->reposition(370, 242);
+
+        units->reposition(365, 100);
+        tens->reposition(335, 100);
+        hundreds->reposition(305,100);
+
+        repositioned=true;
+    }
+    }   
+    
     if (units_c->counter>9){
         units_c->add(tens_c);
         units_c->counter=0;
@@ -36,7 +54,6 @@ void JetpackJoyride::drawObjects(){
     delay_counter++;
     }
     if ((delay_counter%10==0) and game_end==false){
-
     ++(*units);
     }
     if ((delay_counter%100==0) and game_end==false){
@@ -48,22 +65,16 @@ void JetpackJoyride::drawObjects(){
         ++(*hundreds);
         // cout<<"Tens increased"<<endl;
     }
-
-    // if (units_c->counter==10){
-    //     ++(*tens_c);
-    //     units_c->counter=0;
+    if (repositioned==false){
+        meter_symbol->draw({639,17,30,38},{118, 25,30,28});
+        coin_symbol->draw({388,1,21,21},{118, 60,21,21} );
+    }
+    
+    
+    // if(dying_counter>=250){
+    // end_screen->draw({1042, 248, 632, 323}, {0,0,900,460});
     // }
 
-    // if (tens_c->counter==10){
-    //     ++(*hundreds_c);
-    //     tens_c->counter=0;
-    // }
-
-    
-
-    meter_symbol->draw({639,17,30,38},{118, 25,30,28});
-    coin_symbol->draw({388,1,21,21},{118, 60,21,21} );
-    
     //counter for the laser to disable other killers
     if (laser_only==true){
         laser_timer++;
@@ -73,8 +84,6 @@ void JetpackJoyride::drawObjects(){
         }
     }
 
-    // cout<<b1->score<<endl;
-    
 
     killer_iter = killer_holder.begin();   //assign the initial node to the iterator
     collector_iter = collector_holder.begin(); 
@@ -87,6 +96,7 @@ void JetpackJoyride::drawObjects(){
             b1->death = true;
             cout<<"Barry killed"<<endl;
             game_end=true;
+            dying_counter=1;
         }
         if ((**killer_iter).delete_item()==true){  //if the zapper has to be removed
             Killers* new_ptr=*killer_iter; //create a new pointer to the place the bullet to be removed is stored
@@ -129,6 +139,28 @@ void JetpackJoyride::createBarry(){  //to make barry on the screen
     SDL_Rect mov_b = {353, 373, 51, 63}; 
     b1=new Barry(gRenderer, assets, mov_b);
 }
+
+// bool JetpackJoyride::end_game(){
+//     // bool quit=false;
+//     SDL_Event e1;
+//     while(true){
+//         end_screen->draw({1042, 248, 632, 323}, {0,0,900,460});
+//         if( e1.type == SDL_QUIT ){
+//         // quit=true;
+//         return false;
+//         }
+//         if(e1.type == SDL_MOUSEBUTTONDOWN){
+//             int xMouse, yMouse;
+//             SDL_GetMouseState(&xMouse,&yMouse);
+//             if(xMouse>=705 && xMouse<=872){
+//                 if(yMouse>=365 && yMouse<=430){
+                    
+//                     return true;}
+//             }
+//         }
+//     }
+    
+// };
 
 void JetpackJoyride::create_at_random(){
     if (game_end==false){
@@ -245,6 +277,8 @@ JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRende
     tens_c = new CoinCounter(gRenderer, assets, mov_tc);
     hundreds_c = new CoinCounter(gRenderer, assets, mov_hc);
     coin_symbol = new Unit(gRenderer, assets);
+
+    end_screen=new Unit(gRenderer, assets);
 
 }
 

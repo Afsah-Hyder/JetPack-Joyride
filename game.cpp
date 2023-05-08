@@ -80,7 +80,12 @@ bool Game::loadMedia()
 		success = false;
 	}
 	assets = loadTexture("assets.png");
-	gTexture=loadTexture(screen[bg_selector]);
+	// if (bg_selector==3){
+
+	// }
+	// else{
+		gTexture=loadTexture(screen[bg_selector]);
+	
     
 	if(assets==NULL || gTexture==NULL)
     {
@@ -136,13 +141,11 @@ SDL_Texture* Game::loadTexture( std::string path )
 	return newTexture;
 }
 
-bool Game::run1( )
-{	
+bool Game::run1( ){	
 	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
 	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
 	bool quit = false;
 	SDL_Event e;
-	// JetpackJoyride JetpackJoyride(gRenderer, assets);
 	while( !quit ){
 		if( Mix_PlayingMusic() == 0 )
 			{	
@@ -176,7 +179,18 @@ bool Game::run1( )
 					}
 				}
 			}
-		}
+			
+			// if ((bg_selector==3) && (e.type == SDL_MOUSEBUTTONDOWN)){
+			// 	int xMouse, yMouse;
+			// 	SDL_GetMouseState(&xMouse,&yMouse);
+			// 	if(xMouse>=705 && xMouse<=872){
+			// 		if(yMouse>=365 && yMouse<=430){
+			// 			bg_selector=-1;
+			// 			return true;
+			// 		}
+			// 	}
+			// }
+			
 		SDL_RenderClear(gRenderer); //removes everything from renderer
 		SDL_RenderCopy(gRenderer, gTexture, NULL, &bgRect);//Draws background to renderer
 
@@ -184,16 +198,18 @@ bool Game::run1( )
 
 		SDL_Delay(200);	//causes sdl engine to delay for specified miliseconds
 	}
+	}
 }
 
-void Game::run2(){
+bool Game::run2(){
 	cout<<"run2 called"<<endl;
 	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
 	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
 	bool quit = false;
+	int dead_Counter=0;
 	SDL_Event e;
 	JetpackJoyride JetpackJoyride(gRenderer, assets);
-	
+	// bool check=true;
 	FX effects;
 	effects.initialize();
 	effects.load();
@@ -216,7 +232,7 @@ void Game::run2(){
 			if( e.type == SDL_QUIT )
 			{
 				quit = true;
-				// return 999;                       //so it exits the while loop in main
+				return false;                       //so it exits the while loop in main
 			}
 
 			if(e.type == SDL_MOUSEBUTTONDOWN){
@@ -230,33 +246,41 @@ void Game::run2(){
 
 			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
 				JetpackJoyride.fire_jetpack();
-				// effects.effect('j');
-					
-					
 				}
 
 			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_SPACE){
 				JetpackJoyride.jetpack_off();
-				
-					
-				}
-
-			
+			}
 		}
 		//to control speed of objects
 		JetpackJoyride.object_speed=bg_speed;
 
-		//to increase speed as game progresses
-		// if (JetpackJoyride.game_end==false){
-		// 	bg_speed = bg_speed + 0.001;
-		// }
-
-
 		if (JetpackJoyride.game_end==true){
-				if(bg_speed>0){
-					bg_speed = bg_speed*0.993;
+			if(bg_speed>0){
+				bg_speed = bg_speed*0.993;
+				dead_Counter+=1;
+			}
+			if(dead_Counter>=250){
+				if(e.type == SDL_MOUSEBUTTONDOWN){
+					int xMouse, yMouse;
+					SDL_GetMouseState(&xMouse,&yMouse);
+					if(xMouse>=705 && xMouse<=872){
+						if(yMouse>=365 && yMouse<=430){
+							return true;
+						}
+					}
 				}
+				// bool x;
+				// x=JetpackJoyride.end_game();
+				// cout<<x<<endl;
+				// return x;
+				// distance=JetpackJoyride.distance;
+				// score=JetpackJoyride.score;
+				// bg_selector=3;
+				// return true;
+
 			}	
+		}
 		
 		SDL_RenderClear(gRenderer); //removes everything from renderer
 		SDL_RenderCopy(gRenderer, gTexture, NULL, &bgRect);//Draws background to renderer
@@ -276,5 +300,6 @@ void Game::run2(){
 		}
 		JetpackJoyride.create_at_random();
 		SDL_Delay(9);	//causes sdl engine to delay for specified miliseconds
+	
 	}
 }

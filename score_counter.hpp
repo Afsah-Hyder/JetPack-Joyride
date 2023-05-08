@@ -12,7 +12,7 @@ class ScoreCounter:public Unit{
     int counter=0;
     
     public:
-    ScoreCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
+    ScoreCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov, int cnt=0);
     void draw();
     bool trigger=false;
     // int zapper_x = mover.x;
@@ -22,6 +22,7 @@ class ScoreCounter:public Unit{
     // void animation();
     ~ScoreCounter();
     void operator++();
+    void reposition(int x, int y);
     // bool delete_item() override;
 
 
