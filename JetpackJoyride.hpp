@@ -8,6 +8,7 @@
 #include "score_counter.hpp"
 #include "coin_counter.hpp"
 #include "wreaking_ball.hpp"
+#include "Background_Elements.hpp"
 using namespace std;
 class JetpackJoyride{
     
@@ -17,6 +18,8 @@ class JetpackJoyride{
     list<Killers*>::iterator killer_iter;  //iterator for the list of Bullet* objects
     list <Collectables*> collector_holder;
     list<Collectables*>::iterator collector_iter;
+    list<Background_Elements*> bg_elements;
+    list<Background_Elements*>::iterator bg_element_iter;
     bool coin_check=true;
     bool coin_collected_once=false;
     public:

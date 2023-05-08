@@ -9,6 +9,7 @@
 #include "Laser.hpp"
 #include "scoreboost.hpp"
 #include "wreaking_ball.hpp"
+#include "scientist.hpp"
 
 // bool coin_check=true;
 
@@ -120,7 +121,8 @@ void JetpackJoyride::drawObjects(){
             cout<<"boosted"<<endl;
             b1->score+=10;
             // ++(*tens_c);
-            units_c->add(tens_c);
+            tens_c->counter++;
+            // units_c->add(tens_c);
             audio->effect('c'); 
         }
         if ((**collector_iter).coin_delete()==true){  //if the zapper has to be removed
@@ -130,6 +132,12 @@ void JetpackJoyride::drawObjects(){
 
             // cout<<"Coin deleted"<<endl;
         }
+    }
+
+    bg_element_iter = bg_elements.begin();
+    for (bg_element_iter; bg_element_iter!=bg_elements.end();bg_element_iter++){ 
+        // (**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos());  //loop to iterate over the list and remove the bullets that need to be removed
+        (**bg_element_iter).draw();
     }
 
     b1->draw();  //draw Barry
@@ -177,10 +185,7 @@ void JetpackJoyride::create_at_random(){
 
             SDL_Rect mov_z = {1000, random_y_pos-25, 170, 55}; //fixed pos for testing
             Killers* zap = new Zapper_h (gRenderer,assets, mov_z );
-
-            
             killer_holder.push_back(zap);
-            
             // std::cout<<"Zapper_h created at: "<<1000<<" -- "<<random_y_pos<<std::endl;
         }
         else{
@@ -208,8 +213,13 @@ void JetpackJoyride::create_at_random(){
         laser_only=true;
         }
     }
+    else if(check==1){
+        SDL_Rect mov_b={950,rand()%320 +25, 45,45};
+        Collectables* booster_rect=new Score_booster(gRenderer,assets,mov_b);
+        collector_holder.push_back(booster_rect);
+    } 
 
-    else if(check==2 and laser_only==false){
+    else if(check==2){
         //testing for bullets
         SDL_Rect mov_bullet = {850,200,45,45};
         // SDL_Rect mov_laser = {50,200,750,200};
@@ -217,6 +227,17 @@ void JetpackJoyride::create_at_random(){
         // Killers* laser = new Lasers(gRenderer,assets, mov_laser);
         
         killer_holder.push_back(missile);
+        // killer_holder.push_back(laser);
+    }
+
+    else if(check==4){
+        //testing for bullets
+        SDL_Rect mov_scientist = {1000,365,52,61}; //for scientist only right now
+        // SDL_Rect mov_laser = {50,200,750,200};
+        Background_Elements* scientist = new Scientist(gRenderer,assets, mov_scientist);
+        // Killers* laser = new Lasers(gRenderer,assets, mov_laser);
+        
+        bg_elements.push_back(scientist);
         // killer_holder.push_back(laser);
     }
 
@@ -228,13 +249,6 @@ void JetpackJoyride::create_at_random(){
         killer_holder.push_back(ball);
         }
     }
-
-    //score booster creation
-    else if(check==4){
-        SDL_Rect mov_b={950,rand()%320 +25, 45,45};
-        Collectables* booster_rect=new Score_booster(gRenderer,assets,mov_b);
-        collector_holder.push_back(booster_rect);
-    }    
 
 
     //coin creation
@@ -302,14 +316,24 @@ JetpackJoyride::~JetpackJoyride(){  //destructor for the JetpackJoyride
     // bullets.clear();  //to completely clear the bullets list
     for (Killers*& k: killer_holder){
         delete k;
+        k=NULL;
         k=nullptr;
     }
     for (Collectables*& c: collector_holder){
         delete c;
+        c=NULL;
         c=nullptr;
     }
+
+    for (Background_Elements*& b: bg_elements){
+        delete b;
+        b=NULL;
+        b= nullptr;
+    }
+
     collector_holder.clear();
     killer_holder.clear();
+    bg_elements.clear();
     cout<<"Score "<<b1->score<<endl;
     cout<<"Everything destroyed!"<<endl;
 }

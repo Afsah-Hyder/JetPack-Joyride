@@ -266,6 +266,7 @@ bool Game::run2(){
 					SDL_GetMouseState(&xMouse,&yMouse);
 					if(xMouse>=705 && xMouse<=872){
 						if(yMouse>=365 && yMouse<=430){
+							bg_speed=4;
 							return true;
 						}
 					}
