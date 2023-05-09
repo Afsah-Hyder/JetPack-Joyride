@@ -121,7 +121,7 @@ void FX::effect(char choice)
     if (choice == 'b'){
         Mix_PlayChannel(-1,ball,0);
         cout<<"ball sound"<<endl;
-        Mix_VolumeChunk(ball,64);
+        Mix_VolumeChunk(ball,35);
     }
 }
 

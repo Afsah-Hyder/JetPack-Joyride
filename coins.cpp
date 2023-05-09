@@ -69,6 +69,10 @@ void Coins::animation(){
     }
     else if(frame==6*frame_speed){
         src={492,0,22,22};
+        // frame=0;
+    }
+    else if(frame==7*frame_speed){
+        src={388,0,22, 22};
         frame=0;
     }
     

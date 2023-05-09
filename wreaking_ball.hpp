@@ -18,15 +18,11 @@ class WreakingBall:public Killers, public Unit{
     WreakingBall(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
 
     void draw();
-    
-    // int zapper_x = mover.x;
-    // int barry_y;
     bool collision(int barry_x, int barry_y) override;
     
     void animation();
     
     bool delete_item() override;
-    // void position_seeker(int barry_x, int barry_y);
     FX launch_s;
     void launch_sound();
     

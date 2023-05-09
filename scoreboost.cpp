@@ -68,6 +68,11 @@ void Score_booster::animation(){
 
     else if (frame==3*frame_speed){
         src = {520,52,53,41};
+        // frame=0;
+    }
+
+    else if (frame==4*frame_speed){
+        src = {520,52,53,41};
         frame=0;
     }
 }
