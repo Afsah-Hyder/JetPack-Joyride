@@ -9,7 +9,7 @@ class Zapper_h:public Killers, public Unit{
     SDL_Rect src, mover;
     int frame=0;
     public:
-    Zapper_h(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
+    Zapper_h(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);   //constructor
     void draw();
     int zapper_x = mover.x;
     bool collision(int barry_x, int barry_y) override;
