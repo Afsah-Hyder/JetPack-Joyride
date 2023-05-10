@@ -5,7 +5,7 @@ using namespace std;
 
 
 
-void FX::initialize()
+void FX::initialize()  //to initialize the audio class
 {   if (Mix_Init(MIX_INIT_OGG | MIX_INIT_MP3) != 0) {
     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
     {
@@ -14,7 +14,7 @@ void FX::initialize()
     }
 }
 
-void FX::load()
+void FX::load()  //to load the music
 {
     jetpack = Mix_LoadWAV( "music/jetpack_plain_lp.wav" );
     if( jetpack == NULL )
@@ -78,7 +78,7 @@ void FX::destroy()
     // touch = NULL;
 }
 
-void FX::effect(char choice)
+void FX::effect(char choice)  //to play sounds on choice
 {
     
 
@@ -98,7 +98,7 @@ void FX::effect(char choice)
     {   Mix_VolumeChunk(coin, 32);
         Mix_PlayChannel( -1, coin, 0 );
 
-        cout<<"Coin chime"<<endl;
+        // cout<<"Coin chime"<<endl;
     }
 
     if (choice == 'm')
@@ -120,7 +120,7 @@ void FX::effect(char choice)
 
     if (choice == 'b'){
         Mix_PlayChannel(-1,ball,0);
-        cout<<"ball sound"<<endl;
+        // cout<<"ball sound"<<endl;
         Mix_VolumeChunk(ball,35);
     }
 }

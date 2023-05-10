@@ -1,57 +1,60 @@
 #include "Laser.hpp"
 #include <iostream>
-#include "JetpackJoyride.hpp"
+// #include "JetpackJoyride.hpp"
 using namespace std;
 
 Lasers::Lasers(SDL_Renderer *rend, SDL_Texture *ast, SDL_Rect mov) : Unit(rend, ast), mover(mov)
 {
-    cout << "laser created" << endl;
-    src = {255, 545, 405, 45};
-    mover.h=mover.h+20;
-    sound.initialize();
-    sound.load();
+    // cout << "laser created" << endl;
+    src = {255, 545, 405, 45};  //selecting the image from asset file
+    mover.h=mover.h+20;  //resizing the laser
+    sound.initialize();  //initialize the sound object
+    sound.load();   //load the sound files
 }
 
 void Lasers::draw()
 {
     Unit::draw(src, mover);
-    // mover.x -= 2;
-    // animation();
-    if (time_to_fire<500){
-        time_to_fire++;
-        sound.effect('w');
+  
+    if (time_to_fire<500){   //before the laser has started
+        time_to_fire++;   //increment the time
+        sound.effect('w');  //laser charging sound effect
     }
-    // time_to_fire++;
-    if (time_to_fire>=500){
-        animation();
-        frame++;
+
+    if (time_to_fire>=500){  //after the timer has recahed 500
+        animation();  //start animating the laser
+        frame++; 
         running_time++;
-        // cout<<"Laser running for: "<<running_time<<endl;
+        
     }
 }
 
 bool Lasers::collision(int barry_x, int barry_y)
 {   if (running_time!=0){
+
+
+    //conditions for collision
     if (barry_x > mover.x - 100 && barry_x < (mover.x + mover.w + 100))
     {
         if ((barry_y < mover.y + (mover.h / 2)) && (barry_y > mover.y - (mover.h / 2)))
         {
-            cout << "Barry collided with the laser" << endl;
-            return true;
+            // cout << "Barry collided with the laser" << endl;
+            return true;  //barry has collided with the laser
         }
     }
     }
-    return false;
+    return false;  //barry has not collided
 }
 
-Lasers::~Lasers()
+Lasers::~Lasers()  //destructor
 {
-    cout << "Laser destroyed" << endl;
+    // cout << "Laser destroyed" << endl;
 }
 
 bool Lasers::delete_item()
 {   
-    if (running_time>=400){
+    //if the laser has run for a long time
+    if (running_time>=370){  //to start the laser
     return true;
     }
     else{
@@ -59,16 +62,16 @@ bool Lasers::delete_item()
 }
 
 void Lasers::animation()
-{   sound.effect('l');
+{   sound.effect('l');  //play the laser sound
     
 
     if (frame == 1 * frame_speed)
     {
-        src = {260, 440, 397, 35};
+        src = {263, 440, 386, 40}; //selecting the image from asset file
     }
     else if (frame == 2 * frame_speed)
     {
-        src = {260, 496, 395, 35};
+        src = {263, 496, 383, 38}; //selecting the image from asset file
         frame = 1;
     }
 }

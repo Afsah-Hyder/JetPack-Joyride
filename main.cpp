@@ -4,9 +4,7 @@ using namespace std;
 
 int main(int argc, char *argv[]){
     Game game;
-    // Test t1;
-    // for(int i=0;i<5;i++)
-    //     t1.add(i);
+   
     srand(time(NULL));
     if( !game.init() ){
 		printf( "Failed to initialize!\n" );
@@ -14,6 +12,8 @@ int main(int argc, char *argv[]){
 	}
     int i=0;
     bool run_check;
+
+    //screen switching procedure
     while(i<3){
     //     	//Load media
         if( !game.loadMedia() ){

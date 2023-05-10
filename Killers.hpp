@@ -1,17 +1,14 @@
 #pragma once
-// #include "unit.hpp"
-// #include "barry.hpp"
 
 class Killers{
     protected:
-    int frame_speed=6;
+    int frame_speed=6; //to control the killer animation speed
     public:
-    Killers();
+    Killers(); //constructor
     
-    virtual void draw()=0;
-    virtual bool collision(int barry_x, int barry_y)=0;
-    virtual bool delete_item()=0;
-    virtual ~Killers();
-    // virtual bool barry_collided=0;
+    virtual void draw()=0;  //pure virual function to draw the killer
+    virtual bool collision(int barry_x, int barry_y)=0;  //pure virtual function to detect collision
+    virtual bool delete_item()=0; //pure virtual delete_item function to delete the killer object
+    virtual ~Killers();  //virtual destructor so that the child is destroyed instead of the parent
 
 };

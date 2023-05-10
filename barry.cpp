@@ -66,29 +66,23 @@ void Barry::flying(){
 
         if (frames==1*frame_speed){
             src = {83,95, 79, 97};
-            // SDL_Delay(40);
-            // frames++;
+          
         }
 
         else if (frames==2*frame_speed){
             src = {170,95, 79, 97};
-            // SDL_Delay(40);
-            // frames++;
+            
         }
 
         else if (frames==3*frame_speed){
             src = {256,95, 79, 97};
-            // SDL_Delay(40);
             frames=0;
         }
         
         }
 }
 
-void Barry::move_up(){
-    // if(mover.y>30)
-    // mover.y=mover.y-6;
-}
+
 
 void Barry::move_down(){
     // if(mover.y<353){
@@ -102,9 +96,7 @@ void Barry::move_down(){
     }
 }
 
-void Barry::falling(){
 
-}
 
 int Barry::barry_x_pos(){
     return mover.x;
@@ -141,8 +133,5 @@ void Barry::die(){
         // mover.y=400;
         src = {824,105,85,42};
     }
-
-    
-
 
 }

@@ -5,41 +5,46 @@
 using namespace std;
 
 Scientist::Scientist(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
-    cout<<"Scientist created"<<endl;
-    src = {996,18, 40, 71};    //constructor, calls the parent class constructor and saves data to its own attributes too
+    // cout<<"Scientist created"<<endl;
+    src = {996,18, 40, 71};   
 }
 
-void Scientist::draw(){
-    Unit::draw(src, mover); 
+void Scientist::draw(){  //draw the scientists
+    Unit::draw(src, mover);   //draw the object
     
-    mover.x -=3;
-    animation();
-    frame++;
+    mover.x -=3; //move the scientist to the left at a speed of 3 pixels
+    animation();  //animate the scientist
+    frame++;  //increment the frame
 }
 
 
-Scientist::~Scientist(){
-    cout<<"Scientist destroyed"<<endl;
+Scientist::~Scientist(){ //destructor
+    // cout<<"Scientist destroyed"<<endl;
 }
 
 
 
-void Scientist::animation(){
+void Scientist::animation(){  //make the scientist walk
     if (frame==1*frame_speed){
-        src={923,16, 65, 77};
-        // SDL_Delay(40);
-        // frames++;
+        src={923,16, 65, 77};  //selecting the image from asset file
+        
     }
 
     else if (frame==3*frame_speed){
-        src = {987,16, 65, 77};
-        // SDL_Delay(40);
+        src = {987,16, 65, 77}; //selecting the image from asset file
         frame=0;
     }
 
     else if (frame==2*frame_speed){
-        src = {1053,16, 65, 77};
-        // SDL_Delay(40);
-        // frame=0;
+        src = {1053,16, 65, 77};  //selecting the image from asset file
+    }
+}
+
+bool Scientist::delete_item(){
+    if (mover.x<-150){
+        return true;
+    }
+    else{
+        return false;
     }
 }

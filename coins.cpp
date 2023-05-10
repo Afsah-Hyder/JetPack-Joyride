@@ -1,10 +1,10 @@
 #include "coins.hpp"    
 #include <iostream>
-#include "JetpackJoyride.hpp"
+// #include "JetpackJoyride.hpp"
 using namespace std;
 
 Coins::Coins(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov):  Unit(rend, ast), mover(mov){
-    cout<<"Coin created"<<endl;
+    // cout<<"Coin created"<<endl;
     src = {389,2, 20, 20};    //constructor, calls the parent class constructor and saves data to its own attributes too
 }
 
@@ -34,7 +34,7 @@ int Coins::collision(int barry_x, int barry_y){
         //if barry x coordinated lie within the width of the coin with +- 10 units uncertainity
         if ((barry_y<mover.y+(mover.h/2)+15)and (barry_y>mover.y-(mover.h/2)-15)){
             // and barry y coordianted lie within the height of the coin with a +-15 units uncertainity
-            cout<<"Barry collected a coin"<<endl;
+            // cout<<"Barry collected a coin"<<endl;
             invisible=true;        //so we the coin collected is not drawn in the next frame
             collect_once_only=true;       //score increases only once for a coin collected, doesn't increasing for the whole time period Barry is in contact with the coin
             return 1;
@@ -45,7 +45,7 @@ int Coins::collision(int barry_x, int barry_y){
 }
 
 Coins::~Coins(){
-    cout<<"Coin destroyed"<<endl;       //destructor
+    // cout<<"Coin destroyed"<<endl;       //destructor
 }
 
 void Coins::animation(){

@@ -1,26 +1,17 @@
 #pragma once
 #include "unit.hpp"
-// #include "barry.hpp"
 #include "Background_Elements.hpp"
-// #include "Killers.hpp"
-
 
 class Scientist:public Unit, public Background_Elements{
 
     SDL_Rect src, mover;
-    int frame=0;
-    int frame_speed=10;
+    int frame=0;   //to animate the scientist
+    int frame_speed=10;  //to control the speed of animation
     public:
-    Scientist(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
-    void draw();
+    Scientist(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);  //constructor
+    void draw();  //draw the scientist
     
-    // int zapper_x = mover.x;
-    // int barry_y;
-    // bool collision(int barry_x, int barry_y) override;
-    
-    void animation();
-    ~Scientist();
-    // bool delete_item() override;
-
-
+    void animation();  //animate the scientist
+    ~Scientist(); //destructor
+    bool delete_item() override;
 };

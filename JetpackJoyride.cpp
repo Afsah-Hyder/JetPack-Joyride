@@ -10,11 +10,21 @@
 #include "scoreboost.hpp"
 #include "wreaking_ball.hpp"
 #include "scientist.hpp"
+#include "red_lights.hpp"
 
 // bool coin_check=true;
 
 void JetpackJoyride::drawObjects(){
     // call draw functions of all the objects here
+
+    if (bselector==2 and once_only==false){
+        for (int i=0; i<9;i++){
+        SDL_Rect mov_l = {2308+i*368.5,6,140,140};
+        Background_Elements* rlights = new RedLights(gRenderer, assets, mov_l);
+        bg_elements.push_back(rlights);
+    }
+    once_only=true;
+    }
 
     //counter to add an delay between when barry dies and the end-screen appears
    if(dying_counter>=1){
@@ -93,7 +103,7 @@ void JetpackJoyride::drawObjects(){
 
         if((**killer_iter).collision(b1->barry_x_pos(),b1->barry_y_pos())==true){  //if barry has collided with the killer object
             b1->death = true;  //set barry's member bool variable to true to start dying animation
-            cout<<"Barry killed"<<endl;
+            // cout<<"Barry killed"<<endl;
             game_end=true;  //make the Jetpack Joyride member bool variable to true to start end procedure
             dying_counter=1;  //setting the counter to one so that the counter starts counting
         }
@@ -116,7 +126,7 @@ void JetpackJoyride::drawObjects(){
             audio->effect('c'); //play coin sound
         }
         else if (x==2){  //if the collectible is the score booster
-            cout<<"boosted"<<endl;
+            // cout<<"boosted"<<endl;
             b1->score+=10; //increase the score by 10
             tens_c->counter++; //increase the score keeper object by 10
             // units_c->add(tens_c);
@@ -134,6 +144,12 @@ void JetpackJoyride::drawObjects(){
     for (bg_element_iter; bg_element_iter!=bg_elements.end();bg_element_iter++){ //start the for loop
         
         (**bg_element_iter).draw(); //draw the background element
+        if ((**bg_element_iter).delete_item()==true){
+            Background_Elements* new_ptr=*bg_element_iter; //create a new pointer to the place the collectible to be removed is stored
+            bg_elements.erase(bg_element_iter); //remove the collectible object
+            delete new_ptr; //delete the pointer
+        }
+        
     }
 
     b1->draw();  //draw Barry
@@ -264,6 +280,8 @@ JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRende
 
     //end screen creation
     end_screen=new Unit(gRenderer, assets);
+
+    
 
 }
 

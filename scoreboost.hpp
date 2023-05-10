@@ -12,6 +12,7 @@ class Score_booster:public Collectables, public Unit{
     bool invisible=false;
     bool collect_once_only=false;
     int up_down_movt=2;
+    int direction;
     public:
     Score_booster(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);
     void draw();

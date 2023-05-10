@@ -3,8 +3,10 @@
 #include<vector>
 #include "fx.hpp"
 float bg_speed=4;
-// int bg_selector=0;
-// int x;
+float delay=9;
+// int pause_delay;
+bool isPaused=false;
+
 bool Game::init()
 
 
@@ -73,6 +75,7 @@ bool Game::loadMedia()
 	//Loading success flag
 	bool success = true;
 	// SDL_Event e;
+	startscreen = Mix_LoadMUS( "The_Stash.mp3" );
 	bgMusic = Mix_LoadMUS( "bg_music.wav" );
 	jetpacksound = Mix_LoadMUS ("jetpack_jet_lp.wav");
 	if(bgMusic == NULL or jetpacksound==NULL){
@@ -80,10 +83,7 @@ bool Game::loadMedia()
 		success = false;
 	}
 	assets = loadTexture("assets.png");
-	// if (bg_selector==3){
 
-	// }
-	// else{
 		gTexture=loadTexture(screen[bg_selector]);
 	
     
@@ -149,9 +149,8 @@ bool Game::run1( ){
 	while( !quit ){
 		if( Mix_PlayingMusic() == 0 )
 			{	
-				// Mix_PlayMusic(jetpacksound,0);
-				// Play the music
-				Mix_PlayMusic( bgMusic,-1 );
+				
+				Mix_PlayMusic( startscreen,-1 );
 			}
 		while( SDL_PollEvent( &e ) != 0 )
 		{
@@ -180,16 +179,7 @@ bool Game::run1( ){
 				}
 			}
 			
-			// if ((bg_selector==3) && (e.type == SDL_MOUSEBUTTONDOWN)){
-			// 	int xMouse, yMouse;
-			// 	SDL_GetMouseState(&xMouse,&yMouse);
-			// 	if(xMouse>=705 && xMouse<=872){
-			// 		if(yMouse>=365 && yMouse<=430){
-			// 			bg_selector=-1;
-			// 			return true;
-			// 		}
-			// 	}
-			// }
+		
 			
 		SDL_RenderClear(gRenderer); //removes everything from renderer
 		SDL_RenderCopy(gRenderer, gTexture, NULL, &bgRect);//Draws background to renderer
@@ -202,6 +192,7 @@ bool Game::run1( ){
 }
 
 bool Game::run2(){
+
 	cout<<"run2 called"<<endl;
 	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
 	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
@@ -214,6 +205,7 @@ bool Game::run2(){
 	effects.initialize();
 	effects.load();
 	JetpackJoyride.createBarry();
+	Mix_HaltMusic();
 	while( !quit )
 	{	
 		
@@ -239,19 +231,35 @@ bool Game::run2(){
 			//this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
-				// JetpackJoyride.createObject(xMouse, yMouse);
-				// Mix_PlayMusic( firesound, 2 );
-				// effects.effect('c');
+				
 			}
 
-			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE){
+			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE && !isPaused){
 				JetpackJoyride.fire_jetpack();
 				}
 
-			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_SPACE){
+			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_SPACE && !isPaused){
 				JetpackJoyride.jetpack_off();
 			}
+
+			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
+				// JetpackJoyride.fire_jetpack();
+				delay = 1;
+				}
+
+			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f){
+				// JetpackJoyride.jetpack_off();
+				delay=9;
+			}
+
+			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p){
+				// JetpackJoyride.fire_jetpack();
+				isPaused = !isPaused;
+				}
+
 		}
+
+		if (!isPaused){
 		//to control speed of objects
 		JetpackJoyride.object_speed=bg_speed;
 
@@ -267,19 +275,12 @@ bool Game::run2(){
 					if(xMouse>=705 && xMouse<=872){
 						if(yMouse>=365 && yMouse<=430){
 							bg_speed=4;
+							delay = 9;
 							return true;
 						}
 					}
 				}
-				// bool x;
-				// x=JetpackJoyride.end_game();
-				// cout<<x<<endl;
-				// return x;
-				// distance=JetpackJoyride.distance;
-				// score=JetpackJoyride.score;
-				// bg_selector=3;
-				// return true;
-
+				
 			}	
 		}
 		
@@ -293,14 +294,20 @@ bool Game::run2(){
 		SDL_RenderPresent(gRenderer); //displays the updated renderer
 		bgRect.x=bgRect.x-bg_speed; //moves the background
 		if (bgRect.x <= -bgWidth+920) {
-		bgRect.x = -40;
-		bgRect.y = bgRect.y-460;
+			bgRect.x = -40;
+			delay = delay-0.4;  //to speed up the game
+			bgRect.y = bgRect.y-460;
+			JetpackJoyride.bselector=1;
+
+		if (bgRect.y==-460){
+			JetpackJoyride.bselector=2;
+		}
 		if (bgRect.y==-1840){
 			bgRect.y=0;
-			}
+		}
 		}
 		JetpackJoyride.create_at_random();
-		SDL_Delay(9);	//causes sdl engine to delay for specified miliseconds
-	
+		SDL_Delay(delay);	//causes sdl engine to delay for specified miliseconds
+		}	
 	}
 }

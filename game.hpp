@@ -29,7 +29,7 @@ class Game{
     // SDL_Texture* bg6 = NULL;
     //global reference to png image sheets
     SDL_Texture* assets=NULL;
-    const char* screen[4]={"Start_screen.jpeg","Instructions_screen.jpeg","Sector1_new_2.png","end_screen_transparent.jpeg"};
+    const char* screen[4]={"Start_screen.jpeg","Instructions_screen.png","Sector1_new_3.png","end_screen_transparent.jpeg"};
     int bg_selector=0;
     int score=0;
     int distance=0;
@@ -42,6 +42,7 @@ class Game{
     CoinCounter* hundreds_c;
 public:
     Mix_Music *bgMusic = NULL;
+    Mix_Music *startscreen=NULL;
     Mix_Music *jetpacksound = NULL;
     float bgspeed;
     bool init();

@@ -63,8 +63,10 @@ class JetpackJoyride{
 
     int delay_counter=0;
     int dying_counter=0;
+    bool once_only=false;
     // bool laser_delay
     public:
+    int bselector=1;
     // int score=0;
     // int distance=0;
     bool game_end=false;
