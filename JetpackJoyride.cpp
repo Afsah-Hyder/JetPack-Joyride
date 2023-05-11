@@ -11,6 +11,7 @@
 #include "wreaking_ball.hpp"
 #include "scientist.hpp"
 #include "red_lights.hpp"
+#include <fstream>
 
 // bool coin_check=true;
 
@@ -42,7 +43,7 @@ void JetpackJoyride::drawObjects(){
         units->reposition(365, 100);  //reposition the distance unit counter to the middle of the screen
         tens->reposition(335, 100); //reposition the distance tens counter to the middle of the screen
         hundreds->reposition(305,100); //reposition the distance hundreds counter to the middle of the screen
-
+        thousands->reposition(274,99);
         repositioned=true; //stop the repositioning
     }
     }   
@@ -60,6 +61,9 @@ void JetpackJoyride::drawObjects(){
     units->draw();
     tens->draw();
     hundreds->draw();
+    thousands->draw();
+    
+
     units_c->draw();
     tens_c->draw();
     hundreds_c->draw();
@@ -79,10 +83,21 @@ void JetpackJoyride::drawObjects(){
         ++(*hundreds);
         // cout<<"Tens increased"<<endl;
     }
-    if (repositioned==false){
-        meter_symbol->draw({639,17,30,38},{118, 25,30,28});  // draw the 'M' next to the score
-        coin_symbol->draw({388,1,21,21},{118, 60,21,21} );  //draw the coin symbol next to the coin counter
+    if (delay_counter%10000==0){  //continue on the delay of 10 to the hundreds score counter
+        ++(*thousands);
+        // cout<<"Tens increased"<<endl;
+    
     }
+    if (repositioned==false){
+        meter_symbol->draw({639,17,30,38},{152, 25,30,28});  // draw the 'M' next to the score
+        coin_symbol->draw({388,1,21,21},{110, 60,21,21} );  //draw the coin symbol next to the coin counter
+        best_symbol->draw({783,312,56,28},{25, 85,40,20} ); 
+        units_b->draw();
+        tens_b->draw();
+        hundreds_b->draw();
+        thousands_b->draw();
+    }
+
     
 
     //counter for the laser to disable other killers while it is active
@@ -261,26 +276,39 @@ JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRende
     audio->load(); //load the audio files
 
     //Score counter creation
-    SDL_Rect mov_u = {86,10,36,45};
-    SDL_Rect mov_t = {54,10,36,45};
-    SDL_Rect mov_h = {22,10,36,45};
+    SDL_Rect mov_u = {120,10,36,45};
+    SDL_Rect mov_t = {88,10,36,45};
+    SDL_Rect mov_h = {56,10,36,45};
+    SDL_Rect mov_th = {23,10, 36,45};
     units = new ScoreCounter(gRenderer, assets, mov_u);
     tens = new ScoreCounter(gRenderer, assets, mov_t);
     hundreds = new ScoreCounter(gRenderer, assets, mov_h);
+    thousands = new ScoreCounter(gRenderer, assets, mov_th);
+
+
+    SDL_Rect mov_ub = {108,85,15,20};
+    SDL_Rect mov_tb = {97,85,15,20};
+    SDL_Rect mov_hb = {84,85,15,20};
+    SDL_Rect mov_thb = {71,85, 15,20};
+    units_b = new ScoreCounter(gRenderer, assets, mov_ub);
+    tens_b = new ScoreCounter(gRenderer, assets, mov_tb);
+    hundreds_b = new ScoreCounter(gRenderer, assets, mov_hb);
+    thousands_b = new ScoreCounter(gRenderer, assets, mov_thb);
     meter_symbol = new Unit(gRenderer, assets);
 
     //coin counter creation
-    SDL_Rect mov_uc = {86,53,25,31};
-    SDL_Rect mov_tc = {60,53,25,31};
-    SDL_Rect mov_hc = {35,53,25,31};
+    SDL_Rect mov_uc = {77,53,25,31};
+    SDL_Rect mov_tc = {51,53,25,31};
+    SDL_Rect mov_hc = {26,53,25,31};
     units_c = new CoinCounter(gRenderer, assets, mov_uc);
     tens_c = new CoinCounter(gRenderer, assets, mov_tc);
     hundreds_c = new CoinCounter(gRenderer, assets, mov_hc);
     coin_symbol = new Unit(gRenderer, assets);
+    best_symbol = new Unit(gRenderer, assets);
 
     //end screen creation
     end_screen=new Unit(gRenderer, assets);
-
+    best_score_keeper();
     
 
 }
@@ -298,7 +326,7 @@ void JetpackJoyride::jetpack_off(){
 
 JetpackJoyride::~JetpackJoyride(){  //destructor for the JetpackJoyride
     
-
+    text_file_generator();  //check for the best score
     for (Killers*& k: killer_holder){ //emptying the killers list
         delete k;
         k=NULL;
@@ -323,7 +351,91 @@ JetpackJoyride::~JetpackJoyride(){  //destructor for the JetpackJoyride
     //delete the audio object
     delete []audio;
     audio = nullptr;
+    delete units; units = nullptr;
+    delete tens; tens= nullptr;
+    delete hundreds; hundreds = nullptr;
+    delete thousands; thousands = nullptr;
+    delete units_b; units_b=nullptr;
+    delete units_c; units_c = nullptr;
+    delete b1; units_c = nullptr;
+    delete thousands_b; thousands_b=nullptr;
+    delete hundreds_b; hundreds_b = nullptr;
+    delete hundreds_c; hundreds_c = nullptr;
+    delete meter_symbol; meter_symbol = nullptr;
+    delete coin_symbol; coin_symbol = nullptr;
+    delete best_symbol; best_symbol = nullptr;
+
     cout<<"Score "<<b1->score<<endl;
     cout<<"Everything destroyed!"<<endl;
+}
+
+void JetpackJoyride::text_file_generator(){ //chnaged type to truck**
+    fstream file;
+
+    //store the current score in the current_score int array
+    current_score[0] = thousands->counter;
+    current_score[1] = hundreds->counter;
+    current_score[2] = tens->counter;
+    current_score[3] = units->counter;
+
+    //function to compare the integer values in the arrays
+    bool current_score_greater = false;
+    for (int i = 0; i < 4; i++) {
+        if (current_score[i] > best_score[i]) {
+            current_score_greater = true;
+            break;
+        } 
+        else if (current_score[i] < best_score[i]) {
+            break;
+        }
+    }
+
+    if (current_score_greater) {
+
+        //to open and clear the older text file so that it is not messed up
+        file.open("best_score.txt", ios::out | ios::trunc);
+
+        //update the value of the best score
+        best_score[0] = thousands->counter;
+        best_score[1] = hundreds->counter;
+        best_score[2] = tens->counter;
+        best_score[3] = units->counter;
+
+        //for printing the best score
+        cout << best_score[0] << best_score[1] << best_score[2] << best_score[3] << endl;
+        if (file.is_open()) {
+            file << best_score[0] << best_score[1] << best_score[2] << best_score[3] << endl; //write score to the file
+            cout << best_score[0] << best_score[1] << best_score[2] << best_score[3] << endl;
+        }
+        file.close(); //close the file
+    }
+}
+
+
+
+void JetpackJoyride::best_score_keeper(){
+    ifstream file("best_score.txt");
+    int score;
+
+    if (file >> score) {
+        // update score counters
+        units_b->counter = score % 10;  //updating values of best score counters
+        best_score[3]= score % 10;
+        cout<<best_score[3];  //print the value for testing
+
+        tens_b->counter = (score / 10) % 10;  //updating values of best score counters
+        best_score[2]= (score / 10) % 10;
+        cout<<best_score[2];  //print the value for testing
+
+        hundreds_b->counter = (score / 100) % 10;  //updating values of best score counters
+        best_score[1]= (score / 100) % 10;
+        cout<<best_score[1];  //print the value for testing
+
+        thousands_b->counter = score / 1000;  //updating values of best score counters
+        best_score[0]= score / 1000;
+        cout<<best_score[0];  //print the value for testing
+    }
+
+    file.close();  //close the file
 }
 

@@ -49,8 +49,13 @@ class JetpackJoyride{
     ScoreCounter* units;
     ScoreCounter* tens;
     ScoreCounter* hundreds;
+    ScoreCounter* thousands;
     Unit* meter_symbol;
 
+    ScoreCounter* units_b;
+    ScoreCounter* tens_b;
+    ScoreCounter* hundreds_b;
+    ScoreCounter* thousands_b;
     //Coin Keeper Section
 
     CoinCounter* units_c;
@@ -59,6 +64,7 @@ class JetpackJoyride{
     Unit* coin_symbol;
 
     Unit* end_screen;
+    Unit* best_symbol;
     // SDL_Rect meter_pos = {639,17,30,38};
 
     int delay_counter=0;
@@ -66,9 +72,14 @@ class JetpackJoyride{
     bool once_only=false;
     // bool laser_delay
     public:
+    
     int bselector=1;
     // int score=0;
     // int distance=0;
     bool game_end=false;
     float object_speed;
+    void text_file_generator();
+    int best_score[4];
+    int current_score[4];
+    void best_score_keeper();
 };
