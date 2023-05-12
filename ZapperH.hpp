@@ -7,7 +7,7 @@
 
 class Zapper_h:public Killers, public Unit{
     SDL_Rect src, mover;
-    int frame=0;
+    int frame=0;  //to control the frames of animation
     public:
     Zapper_h(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov);   //constructor
     void draw();

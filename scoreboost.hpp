@@ -6,11 +6,11 @@
 
 class Score_booster:public Collectables, public Unit{
     SDL_Rect src, mover;
-    int frame=0;
-    int frame_speed=14;
-    bool coll_check=false;
-    bool invisible=false;
-    bool collect_once_only=false;
+    int frame=0; //frame controller
+    int frame_speed=14;  //to control how fast the frames change. The higher the slower
+    bool coll_check=false;  //collision checker
+    bool invisible=false; //to make the coin disppear after it is collected
+    bool collect_once_only=false;  //so that each coin is collected once only
     int up_down_movt=2;
     int direction;
     public:

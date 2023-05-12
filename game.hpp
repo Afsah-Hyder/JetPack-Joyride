@@ -22,11 +22,7 @@ class Game{
     SDL_Rect camera;
     //Current displayed texture
     SDL_Texture* gTexture = NULL;
-    // SDL_Texture* bg2 = NULL;
-    // SDL_Texture* bg3 = NULL;
-    // SDL_Texture* bg4 = NULL;
-    // SDL_Texture* bg5 = NULL;
-    // SDL_Texture* bg6 = NULL;
+
     //global reference to png image sheets
     SDL_Texture* assets=NULL;
     const char* screen[4]={"Start_screen.jpeg","Instructions_screen.png","Sector1_new_3.png","end_screen_transparent.jpeg"};

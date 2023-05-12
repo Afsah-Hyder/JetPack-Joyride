@@ -24,7 +24,7 @@ bool Coins::coin_delete(){
     }
 
     else{
-    return false;
+    return false;  //else keep it on the screen
     }
 }
 

@@ -287,7 +287,7 @@ JetpackJoyride::JetpackJoyride(SDL_Renderer *renderer, SDL_Texture *asst):gRende
     hundreds = new ScoreCounter(gRenderer, assets, mov_h);
     thousands = new ScoreCounter(gRenderer, assets, mov_th);
 
-
+    //best score keeper creation
     SDL_Rect mov_ub = {108,85,15,20};
     SDL_Rect mov_tb = {97,85,15,20};
     SDL_Rect mov_hb = {84,85,15,20};

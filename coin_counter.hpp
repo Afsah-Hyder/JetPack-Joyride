@@ -16,16 +16,11 @@ class CoinCounter:public Unit{
     void draw();
     bool trigger=false;
     int counter=0;
-    // int zapper_x = mover.x;
-    // int barry_y;
-    // void collision(int barry_x, int barry_y) override;
-    
-    // void animation();
+
     ~CoinCounter();
     void operator++();
     void add(CoinCounter *obj);
     void reposition(int x, int y);
-    // bool delete_item() override;
 
 
 };

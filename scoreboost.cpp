@@ -31,7 +31,7 @@ void Score_booster::draw(){
 }
 
 bool Score_booster::coin_delete(){  //function to delete the score booster once it leaves the screen
-    if (mover.x < -150){
+    if (mover.x < -150){  //outside the visible area.
         return true;
     }
 

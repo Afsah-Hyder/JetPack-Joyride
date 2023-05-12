@@ -142,7 +142,7 @@ SDL_Texture* Game::loadTexture( std::string path )
 }
 
 bool Game::run1( ){	
-	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
+	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight); //returns the bgWidth and bgHeight
 	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
 	bool quit = false;
 	SDL_Event e;
@@ -194,9 +194,9 @@ bool Game::run1( ){
 bool Game::run2(){
 
 	cout<<"run2 called"<<endl;
-	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);
-	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight};
-	bool quit = false;
+	SDL_QueryTexture(gTexture, NULL, NULL, &bgWidth, &bgHeight);  //returns the bgWidth and bgHeight
+	SDL_Rect bgRect = {0, 0, bgWidth, bgHeight}; //create an SDL_Rect object of the same size as the background
+	bool quit = false; //to stop the while loop
 	int dead_Counter=0;
 	SDL_Event e;
 	JetpackJoyride JetpackJoyride(gRenderer, assets);
@@ -212,7 +212,7 @@ bool Game::run2(){
 		if( Mix_PlayingMusic() == 0 )
 			{	
 				
-				Mix_PlayMusic( bgMusic,-1 );
+				Mix_PlayMusic( bgMusic,-1 );  //start playing the background music
 			}
 		
 		//Handle events on queue
@@ -235,27 +235,27 @@ bool Game::run2(){
 			}
 
 			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE && !isPaused){
-				JetpackJoyride.fire_jetpack();
+				JetpackJoyride.fire_jetpack();  //to make barry rise
 				}
 
 			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_SPACE && !isPaused){
-				JetpackJoyride.jetpack_off();
+				JetpackJoyride.jetpack_off();  //to make barry fall
 			}
 
-			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){
+			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_f){  //fast forward for testing
 				// JetpackJoyride.fire_jetpack();
 				delay = 1;
 				}
 
-			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f){
-				// JetpackJoyride.jetpack_off();
+			if(e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_f){  //release the fast forward
+				// JetpackJoyride.jetpack_off(); 
 				delay=9;
 			}
 
-			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p){
+			if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p){  //pause implementation
 				// JetpackJoyride.fire_jetpack();
-				isPaused = !isPaused;
-				}
+				isPaused = !isPaused; //toggle the pause
+				}   
 
 		}
 
@@ -265,7 +265,7 @@ bool Game::run2(){
 
 		if (JetpackJoyride.game_end==true){
 			if(bg_speed>0){
-				bg_speed = bg_speed*0.993;
+				bg_speed = bg_speed*0.993;  //to slow down the background as in the real game
 				dead_Counter+=1;
 			}
 			if(dead_Counter>=250){
@@ -273,8 +273,8 @@ bool Game::run2(){
 					int xMouse, yMouse;
 					SDL_GetMouseState(&xMouse,&yMouse);
 					if(xMouse>=705 && xMouse<=872){
-						if(yMouse>=365 && yMouse<=430){
-							bg_speed=4;
+						if(yMouse>=365 && yMouse<=430){   //retry button clicked
+							bg_speed=4; 
 							delay = 9;
 							return true;
 						}
@@ -292,18 +292,18 @@ bool Game::run2(){
 		JetpackJoyride.drawObjects();
 		//****************************************************************
 		SDL_RenderPresent(gRenderer); //displays the updated renderer
-		bgRect.x=bgRect.x-bg_speed; //moves the background
+		bgRect.x=bgRect.x-bg_speed; //moves the background 
 		if (bgRect.x <= -bgWidth+920) {
-			bgRect.x = -40;
+			bgRect.x = -40;  //snap back the background
 			delay = delay-0.4;  //to speed up the game
-			bgRect.y = bgRect.y-460;
-			JetpackJoyride.bselector=1;
+			bgRect.y = bgRect.y-460;  //move the SDL_Rect object down
+			JetpackJoyride.bselector=1;  //for the redlights to appear
 
 		if (bgRect.y==-460){
-			JetpackJoyride.bselector=2;
+			JetpackJoyride.bselector=2; //no more redlights
 		}
 		if (bgRect.y==-1840){
-			bgRect.y=0;
+			bgRect.y=0;  //go to the top
 		}
 		}
 		JetpackJoyride.create_at_random();

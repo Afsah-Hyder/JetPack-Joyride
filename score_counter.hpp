@@ -13,11 +13,11 @@ class ScoreCounter:public Unit{
     
     public:
     int counter=0;
-    ScoreCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov, int cnt=0);
-    void draw();
-    bool trigger=false;
+    ScoreCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov, int cnt=0); //constructor
+    void draw();  //draw function
+    bool trigger=false;  
  
     ~ScoreCounter();
-    void operator++();
-    void reposition(int x, int y);
+    void operator++();  //overloaded preincrement operator
+    void reposition(int x, int y);  //to reposition the score counters to the middle of the screen
 };

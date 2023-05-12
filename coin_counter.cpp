@@ -10,7 +10,7 @@ CoinCounter::CoinCounter(SDL_Renderer* rend, SDL_Texture* ast, SDL_Rect mov, int
     counter=cnt;
 }
 
-void CoinCounter::reposition(int x, int y){
+void CoinCounter::reposition(int x, int y){  //reposition the coin counter to the required x and y
     mover.x+=x;
     mover.y+=y;
     mover.w=50;
@@ -20,43 +20,43 @@ void CoinCounter::reposition(int x, int y){
 void CoinCounter::draw(){
     Unit::draw(src, mover); 
     if (counter==0){
-        src = {731,166, 23, 34};
+        src = {731,166, 23, 34}; //select the frame in the asset file
     } 
 
     else if (counter==1){
-        src = {731,209, 23, 34};
+        src = {731,209, 23, 34}; //select the frame in the asset file
     }   
 
     else if (counter==2){
-        src = {731,252, 23, 34};
+        src = {731,252, 23, 34}; //select the frame in the asset file
     }    
 
     else if (counter==3){
-        src = {731,295, 23, 34};
+        src = {731,295, 23, 34}; //select the frame in the asset file
     } 
 
     else if (counter==4){
-        src = {731,338, 23, 34};
+        src = {731,338, 23, 34}; //select the frame in the asset file
     } 
 
     else if (counter==5){
-        src = {731,381, 23, 34};
+        src = {731,381, 23, 34}; //select the frame in the asset file
     } 
 
     else if (counter==6){
-        src = {731,423, 23, 34};
+        src = {731,423, 23, 34}; //select the frame in the asset file
     } 
 
     else if (counter==7){
-        src = {731,467, 23, 34};
+        src = {731,467, 23, 34}; //select the frame in the asset file
     } 
 
     else if (counter==8){
-        src = {731,509, 23, 34};
+        src = {731,509, 23, 34}; //select the frame in the asset file
     } 
 
     else if (counter==9){
-        src = {731,553, 23, 34};
+        src = {731,553, 23, 34}; //select the frame in the asset file
     } 
 
 }
@@ -66,31 +66,16 @@ CoinCounter::~CoinCounter(){
 }
 
 
-void CoinCounter::add(CoinCounter *obj){
+void CoinCounter::add(CoinCounter *obj){  //to increase the counter of the other object
     obj->counter++;
     // counter=0;
 }
 
-void CoinCounter::operator ++ ( ){
-    // cout<<"I AM CALLED";
-    // trigger=false;
+void CoinCounter::operator ++ ( ){  //overloaded operator
+
     counter++;
-    // if (counter==0){
-    //     trigger =false;
-    // }
-    // counter=
-    // trigger=false;
-    // if (counter==10){
-    //     trigger=true;
-        // counter=0;
-        // trigger=false;
 
     }
     
-    // // trigger=false;
-    // else if (counter>99){
-    //     counter =0;
-    //     trigger=false;
-    // }
-// }
+
 
