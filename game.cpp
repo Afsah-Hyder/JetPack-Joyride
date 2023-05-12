@@ -76,7 +76,7 @@ bool Game::loadMedia()
 	bool success = true;
 	// SDL_Event e;
 	startscreen = Mix_LoadMUS( "The_Stash.mp3" );
-	bgMusic = Mix_LoadMUS( "bg_music.wav" );
+	bgMusic = Mix_LoadMUS( "bg_music.mp3" );
 	jetpacksound = Mix_LoadMUS ("jetpack_jet_lp.wav");
 	if(bgMusic == NULL or jetpacksound==NULL){
 		printf("Unable to load music: %s \n", Mix_GetError());

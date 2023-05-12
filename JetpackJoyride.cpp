@@ -17,7 +17,7 @@
 
 void JetpackJoyride::drawObjects(){
     // call draw functions of all the objects here
-
+    
     if (bselector==2 and once_only==false){
         for (int i=0; i<9;i++){
         SDL_Rect mov_l = {2308+i*368.5,6,140,140};
@@ -176,7 +176,9 @@ void JetpackJoyride::createBarry(){  //to make barry on the screen
 }
 
 
-void JetpackJoyride::create_at_random(){ //this function deals with the creation of all kinds of objects
+void JetpackJoyride::create_at_random(){ 
+
+    //this function deals with the creation of all kinds of objects
     if (game_end==false){ //if the game hasn't ended yet
     random_speed_controller++; //to place objects at random distances
     random_object_spacer = rand()%100; //to ensure that objects dont overlap
@@ -189,7 +191,7 @@ void JetpackJoyride::create_at_random(){ //this function deals with the creation
             
 
 
-            SDL_Rect mov_z = {1000, random_y_pos-25, 170, 55}; 
+            SDL_Rect mov_z = {1000, random_y_pos+10, 170, 55}; 
             Killers* zap = new Zapper_h (gRenderer,assets, mov_z );  //create a new zapper object
             killer_holder.push_back(zap);  //push the object into the list
             
@@ -390,7 +392,7 @@ void JetpackJoyride::text_file_generator(){ //chnaged type to truck**
         }
     }
 
-    if (current_score_greater) {
+    if (current_score_greater==true) {
 
         //to open and clear the older text file so that it is not messed up
         file.open("best_score.txt", ios::out | ios::trunc);

@@ -41,10 +41,7 @@ class JetpackJoyride{
     int laser_timer=0;
     bool laser_only=false;
     bool repositioned=false;
-    // int unit_counter=0;
-    // int tens_counter=0;
-    // int hundreds_counter=0;
-
+   
     //Score Keeper Section
     ScoreCounter* units;
     ScoreCounter* tens;
